@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Item Swap Marketplace — Upload Images</title>
-  <meta name="description" content="Item Swap Marketplace with categories and image upload (saved in browser localStorage).">
+  <title>Item Swap Marketplace — Welcome</title>
+  <meta name="description" content="Item Swap Marketplace with categories and lots of items.">
   <style>
     :root{
-      --bg:#071028;
-      --card:#081426;
+      --bg:#071026;
+      --card:#081425;
       --muted:#9fb2d6;
-      --accent-a: #ff7bac;
-      --accent-b: #7be0c7;
-      --accent-c: #ffd36b;
-      --accent-d: #8b7bff;
+      --accent1:#ff7bac;  /* pink */
+      --accent2:#7be0c7;  /* mint */
+      --accent3:#ffd36b;  /* yellow */
+      --accent4:#8b7bff;  /* violet */
+      --glass: rgba(255,255,255,0.03);
       --radius:14px;
       --maxw:1200px;
       --budget-threshold:100;
@@ -23,68 +24,76 @@
     body{
       margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
       background:
-        radial-gradient(600px 300px at 10% 10%, rgba(139,123,255,0.06), transparent),
-        radial-gradient(700px 400px at 90% 90%, rgba(255,123,172,0.04), transparent),
+        radial-gradient(700px 400px at 10% 10%, rgba(139,123,255,0.06), transparent),
+        radial-gradient(600px 350px at 90% 90%, rgba(255,123,172,0.04), transparent),
         var(--bg);
       color:#e8f1fb;
       -webkit-font-smoothing:antialiased;
       padding-bottom:40px;
     }
 
-    header{max-width:var(--maxw);margin:22px auto;padding:18px;border-radius:18px;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    /* Header / Navigation */
+    header{
+      max-width:var(--maxw);margin:18px auto;padding:12px;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:12px;
       background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border:1px solid rgba(255,255,255,0.03);
     }
-    .brand{display:flex;gap:14px;align-items:center}
-    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent-d),var(--accent-b));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#041018}
-    h1{margin:0;font-size:1.18rem}
-    p.lead{margin:0;color:var(--muted);font-size:0.95rem}
-
-    .controls{display:flex;gap:10px;align-items:center}
-    .chip{background:rgba(255,255,255,0.03);padding:8px 12px;border-radius:999px;color:var(--muted);font-size:0.9rem}
-    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
-    .btn-primary{background:linear-gradient(90deg,var(--accent-d),var(--accent-b));color:#052626}
-    .btn-danger{background:linear-gradient(90deg,#ff6b6b,#ff8a8a);color:white}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent4),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;color:#041018}
+    h1{margin:0;font-size:1.08rem}
+    .nav{display:flex;gap:8px;align-items:center}
+    .nav button{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 10px;border-radius:10px;cursor:pointer;font-weight:700}
+    .nav button.active{background:linear-gradient(90deg,var(--accent4),var(--accent2));color:#031818;border:none}
 
     .container{max-width:var(--maxw);margin:18px auto;padding:0 18px}
 
-/* add-panel */
-    .add-panel{margin-top:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}
-    .field{display:flex;flex-direction:column;gap:6px;min-width:160px}
-    label{font-size:0.82rem;color:var(--muted)}
-    input[type="text"], input[type="number"], input[type="url"], select{padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;font-size:0.95rem}
-    input[type="file"]{color:var(--muted);font-size:0.9rem}
-    .small-note{font-size:0.82rem;color:var(--muted);width:100%}
+/* Welcome page */
+    .welcome{
+      display:flex;align-items:center;gap:20px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:28px;border-radius:16px;border:1px solid rgba(255,255,255,0.03);
+    }
+    .hero-left{flex:1}
+    .hero-right{width:360px;min-width:260px}
+    .hero-title{font-size:1.6rem;margin:0 0 8px}
+    .hero-sub{color:var(--muted);margin:0 0 16px}
+    .cta{background:linear-gradient(90deg,var(--accent2),var(--accent3));color:#07211a;padding:12px 16px;border-radius:12px;border:none;cursor:pointer;font-weight:800}
+    .features{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+    .feature{background:var(--glass);padding:10px;border-radius:8px;color:var(--muted);font-weight:700}
 
-/* categories */
-    .categories{display:grid;grid-template-columns:1fr;gap:20px;margin-top:20px}
+/* Catalog / category layout */
+    .categories{display:grid;gap:20px;margin-top:20px}
     .category-card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-    .cat-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .cat-title{font-weight:800}
+    .cat-head{display:flex;align-items:center;justify-content:space-between}
+    .cat-title{font-weight:900}
     .cat-desc{color:var(--muted);font-size:0.9rem}
 
-/* grid inside */
+/* grid inside category */
     .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-top:12px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;border:1px solid rgba(255,255,255,0.03);overflow:hidden;display:flex;flex-direction:column;min-height:300px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;border:1px solid rgba(255,255,255,0.03);overflow:hidden;display:flex;flex-direction:column;min-height:290px}
     .card .body{padding:12px 12px 6px}
-    .name{font-weight:800;margin:0 0 6px;font-size:1rem}
+    .name{font-weight:800;margin:0 0 6px;font-size:1rem;color:#f8fbff}
     .price-row{display:flex;align-items:center;gap:8px;justify-content:space-between}
-    .price{font-weight:900;color:var(--accent-c);font-size:1rem}
-    .budget{background:linear-gradient(90deg,var(--accent-b),var(--accent-d));color:#032; padding:6px 8px;border-radius:999px;font-weight:800;font-size:0.78rem}
-    .image-wrap{flex:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));height:170px;overflow:hidden}
+    .price{font-weight:900;color:var(--accent3);font-size:1rem}
+    .budget{background:linear-gradient(90deg,var(--accent2),var(--accent4));color:#032;padding:6px 8px;border-radius:999px;font-weight:800;font-size:0.78rem}
+    .image-wrap{flex:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));height:160px;overflow:hidden}
     .image-wrap img{width:100%;height:100%;object-fit:cover;display:block}
     .meta{padding:10px 12px;color:var(--muted);font-size:0.86rem;display:flex;align-items:center;justify-content:space-between}
     .remove{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:6px 8px;border-radius:8px;cursor:pointer}
 
-/* empty */
-    .empty{padding:18px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px dashed rgba(255,255,255,0.03);color:var(--muted);text-align:center}
+/* Contact page */
+    .contact-card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:16px}
+    .contact-form input, .contact-form textarea{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;margin-bottom:10px}
+    .contact-info{color:var(--muted);font-size:0.95rem}
 
-/* responsive */
+/* small screens */
+    @media (max-width:880px){
+      .contact-grid{grid-template-columns:1fr}
+      .hero-right{display:none}
+    }
     @media (max-width:720px){
       .grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
-      header{flex-direction:column;align-items:flex-start;gap:12px}
-      .add-panel{flex-direction:column;align-items:stretch}
+      header{padding:10px}
+      .welcome{flex-direction:column;align-items:flex-start}
     }
   </style>
 </head>
@@ -94,243 +103,248 @@
       <div class="logo">IS</div>
       <div>
         <h1>Item Swap Marketplace</h1>
-        <p class="lead">Categories — Toys • Books • Dress • Things — upload images or paste a URL</p>
+        <div style="color:var(--muted);font-size:0.9rem">Swap • Save • Smile</div>
       </div>
     </div>
 
-    <div class="controls">
-      <div class="chip">Swap & Save</div>
-      <button id="clearAll" class="btn btn-danger" title="Reset to sample">Reset</button>
-    </div>
+    <nav class="nav" aria-label="Main navigation">
+      <button id="nav-welcome" class="active">Welcome</button>
+      <button id="nav-catalog">Catalog</button>
+      <button id="nav-contact">Contact</button>
+    </nav>
   </header>
 
-  <main class="container" role="main">
-    <section class="add-panel" aria-label="Add item panel">
-      <div class="field" style="flex:2;min-width:200px">
-        <label for="item-name">Item name</label>
-        <input id="item-name" type="text" placeholder="e.g., Toy Car, Algebra Book, Summer Dress">
+  <main class="container">
+    <!-- ===== Welcome Page ===== -->
+    <section id="page-welcome" class="welcome" aria-labelledby="welcome-heading">
+      <div class="hero-left">
+        <h2 id="welcome-heading" class="hero-title">Welcome to Item Swap Marketplace</h2>
+        <p class="hero-sub">A place to list items you want to swap or sell. Organized categories and many budget-friendly finds — all in one place.</p>
+
+        <div style="margin-top:14px">
+          <button id="go-catalog" class="cta">Browse items now</button>
+        </div>
+
+        <div class="features" style="margin-top:16px">
+          <div class="feature">✔ Organized categories</div>
+          <div class="feature">✔ Budget-friendly tags</div>
+          <div class="feature">✔ Upload images or use URLs</div>
+          <div class="feature">✔ Easy remove & save</div>
+        </div>
       </div>
 
-      <div class="field" style="width:120px">
-        <label for="item-price">Price (₹)</label>
-        <input id="item-price" type="number" min="0" step="0.01" placeholder="e.g., 75">
+      <div class="hero-right">
+        <div style="background:linear-gradient(90deg,var(--accent2),var(--accent1)); padding:16px;border-radius:12px;color:#041818">
+          <h3 style="margin:0 0 6px">Why swap?</h3>
+          <p style="margin:0;color:#072626">Swap unwanted but usable items with others — save money and the planet. Try browsing the catalog with 200 sample items.</p>
+          <div style="margin-top:12px">
+            <button id="demo-add-sample" style="background:#fff;padding:8px 10px;border-radius:10px;border:none;font-weight:800;cursor:pointer">Reset sample items</button>
+          </div>
+        </div>
       </div>
-
-      <div class="field" style="flex:1;min-width:220px">
-        <label for="item-url">Image URL (optional)</label>
-        <input id="item-url" type="url" placeholder="https://example.com/photo.jpg">
-      </div>
-
-      <div class="field" style="min-width:180px">
-        <label for="item-file">Or upload image (jpg/png)</label>
-        <input id="item-file" type="file" accept="image/*">
-      </div>
-
-      <div class="field" style="width:160px">
-        <label for="item-category">Category</label>
-        <select id="item-category">
-          <option>Toys</option>
-          <option>Books</option>
-          <option>Dress</option>
-          <option>Things</option>
-        </select>
-      </div>
-
-      <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
-        <button id="add-item" class="btn btn-primary">Add Item</button>
-        <button id="save-local" class="btn" title="Save now">Save</button>
-      </div>
-
-      <div style="flex-basis:100%"></div>
-      <div class="small-note">Tip: Uploaded images are stored only in your browser (localStorage). For sharing across devices you'd need a server. Budget-friendly tag appears when price ≤ ₹100.</div>
     </section>
 
-    <section class="categories" id="categories"></section>
+    <!-- ===== Catalog Page ===== -->
+    <section id="page-catalog" style="display:none;margin-top:18px">
+      <div style="display:flex;gap:12px;align-items:center;justify-content:space-between">
+        <div style="display:flex;gap:12px;align-items:center">
+          <strong style="font-size:1.05rem">Catalog</strong>
+          <div style="color:var(--muted)">Explore items by category (200 sample items — 50 each)</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="btn-scroll-top" class="nav">Top</button>
+        </div>
+      </div>
+
+      <div class="categories" id="categories"></div>
+    </section>
+
+    <!-- ===== Contact Page ===== -->
+    <section id="page-contact" style="display:none;margin-top:18px">
+      <div class="contact-card">
+        <h2>Contact Us</h2>
+        <div style="height:12px"></div>
+        <div class="contact-grid">
+          <div>
+            <form class="contact-form" id="contact-form">
+              <input id="c-name" type="text" placeholder="Your name" required />
+              <input id="c-email" type="email" placeholder="Your email" required />
+              <input id="c-subject" type="text" placeholder="Subject" />
+              <textarea id="c-message" rows="6" placeholder="Message"></textarea>
+              <div style="display:flex;gap:8px">
+                <button type="submit" class="cta">Send (opens email)</button>
+                <button type="button" id="contact-reset" class="nav">Reset</button>
+              </div>
+            </form>
+          </div>
+
+          <aside class="contact-info">
+            <h3 style="margin-top:0">Get in touch</h3>
+            <p>Email: <a href="mailto:info@itemswap.example" style="color:var(--muted)">info@itemswap.example</a></p>
+            <p>Phone: +91 93422 98598</p>
+            <p>Address: Erode, Tamil Nadu, India</p>
+            <div style="height:12px"></div>
+            <p style="color:var(--muted)">We respond within 2 business days. For urgent matters, call the number above.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script>
-    /* ===== Data & persistence ===== */
+    /* ============================
+       Navigation: show/hide pages
+       ============================ */
+    const navWelcome = document.getElementById('nav-welcome');
+    const navCatalog = document.getElementById('nav-catalog');
+    const navContact = document.getElementById('nav-contact');
+    const pageWelcome = document.getElementById('page-welcome');
+    const pageCatalog = document.getElementById('page-catalog');
+    const pageContact = document.getElementById('page-contact');
+    const navButtons = [navWelcome, navCatalog, navContact];
+
+    function setActive(navBtn){
+      navButtons.forEach(b => b.classList.remove('active'));
+      navBtn.classList.add('active');
+    }
+    function showPage(pageName){
+      pageWelcome.style.display = 'none';
+      pageCatalog.style.display = 'none';
+      pageContact.style.display = 'none';
+      if(pageName === 'welcome'){ pageWelcome.style.display = ''; setActive(navWelcome); }
+      else if(pageName === 'catalog'){ pageCatalog.style.display = ''; setActive(navCatalog); }
+      else if(pageName === 'contact'){ pageContact.style.display = ''; setActive(navContact); }
+      // scroll to top for smoother UX
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    navWelcome.addEventListener('click', ()=> showPage('welcome'));
+    navCatalog.addEventListener('click', ()=> showPage('catalog'));
+    navContact.addEventListener('click', ()=> showPage('contact'));
+    document.getElementById('go-catalog').addEventListener('click', ()=> showPage('catalog'));
+    document.getElementById('btn-scroll-top').addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+    /* ============================
+       Data: generate items
+       50 items per category (user asked 50-100)
+       ============================ */
     const CATEGORIES = ['Toys','Books','Dress','Things'];
-    const STORAGE_KEY = 'itemSwap.v2';
-    const BUDGET = Number(getComputedStyle(document.documentElement).getPropertyValue('--budget-threshold')) || 100;
+    const ITEMS_PER_CATEGORY = 50; // change this value if you want more (e.g., 100)
+    const SAMPLE_STORAGE_KEY = 'itemSwap.catalog.v3';
 
-    // More sample items (with placeholder images)
-    const SAMPLE = [
-      // Toys
-      { id: idGen(), category:'Toys', name:'Remote Control Car', price: 450, image:'https://via.placeholder.com/600x400?text=RC+Car', notes:'Works well' },
-      { id: idGen(), category:'Toys', name:'Plush Bunny', price: 60, image:'https://via.placeholder.com/600x400?text=Plush+Bunny', notes:'Soft' },
-      { id: idGen(), category:'Toys', name:'Lego Starter Set', price: 250, image:'https://via.placeholder.com/600x400?text=Lego+Set', notes:'Few pieces missing' },
-
-      // Books
-      { id: idGen(), category:'Books', name:'Mathematics - Class 10', price: 90, image:'https://via.placeholder.com/600x400?text=Math+Book', notes:'Good condition' },
-      { id: idGen(), category:'Books', name:'Story Collection', price: 40, image:'https://via.placeholder.com/600x400?text=Story+Book', notes:'Kid friendly' },
-      { id: idGen(), category:'Books', name:'Programming Basics', price: 220, image:'https://via.placeholder.com/600x400?text=Programming+Book', notes:'Slight wear' },
-
-      // Dress
-      { id: idGen(), category:'Dress', name:'Floral Summer Dress', price: 350, image:'https://via.placeholder.com/600x400?text=Floral+Dress', notes:'Size M' },
-      { id: idGen(), category:'Dress', name:'Jeans (Blue)', price: 550, image:'https://via.placeholder.com/600x400?text=Blue+Jeans', notes:'Like new' },
-      { id: idGen(), category:'Dress', name:'Casual T-shirt', price: 120, image:'https://via.placeholder.com/600x400?text=T-shirt', notes:'Comfortable' },
-
-      // Things
-      { id: idGen(), category:'Things', name:'Wooden Study Table', price: 1200, image:'https://via.placeholder.com/600x400?text=Study+Table', notes:'Sturdy' },
-      { id: idGen(), category:'Things', name:'Ceramic Vase', price: 80, image:'https://via.placeholder.com/600x400?text=Ceramic+Vase', notes:'Decor piece' },
-      { id: idGen(), category:'Things', name:'Bluetooth Speaker', price: 900, image:'https://via.placeholder.com/600x400?text=Speaker', notes:'Good sound' },
-    ];
-
-    // load saved items or initialize
-    let items = loadItems();
-
-    // DOM refs
-    const categoriesEl = document.getElementById('categories');
-    const nameInput = document.getElementById('item-name');
-    const priceInput = document.getElementById('item-price');
-    const urlInput = document.getElementById('item-url');
-    const fileInput = document.getElementById('item-file');
-    const categorySel = document.getElementById('item-category');
-    const addBtn = document.getElementById('add-item');
-    const saveBtn = document.getElementById('save-local');
-    const clearBtn = document.getElementById('clearAll');
-
-    // initial render
-    renderAll();
-
-    // add item handler (supports file upload OR url; file has priority)
-    addBtn.addEventListener('click', async () => {
-      const name = nameInput.value.trim();
-      const priceRaw = priceInput.value.trim();
-      const url = urlInput.value.trim();
-      const category = categorySel.value;
-
-      if(!name){
-        alert('Please enter item name.');
-        nameInput.focus(); return;
-      }
-
-      let imageData = '';
-      // if a file selected -> read as DataURL
-      if(fileInput.files && fileInput.files.length){
-        const file = fileInput.files[0];
-        // limit file size to ~1.2MB to avoid huge localStorage entries (user can still try larger)
-        if(file.size > 1.5 * 1024 * 1024){
-          if(!confirm('File is large (>' + Math.round(file.size/1024) + ' KB). Continue?')) {
-            return;
-          }
-        }
-        try {
-          imageData = await readFileAsDataURL(file);
-        } catch(e) {
-          console.error('File read error', e);
-          alert('Unable to read file.');
-          return;
-        }
-      } else if(url && (url.startsWith('http://') || url.startsWith('https://'))){
-        imageData = url;
-      } else {
-        imageData = 'https://via.placeholder.com/600x400?text=No+Image';
-      }
-
-      const price = priceRaw === '' ? null : Number(priceRaw);
-
-      const newItem = { id: idGen(), name, price, image: imageData, category, notes: '' };
-      items.unshift(newItem);
-      saveItems();
-      renderAll();
-
-      // clear inputs
-      nameInput.value=''; priceInput.value=''; urlInput.value=''; fileInput.value='';
-      nameInput.focus();
-    });
-
-    // save button
-    saveBtn.addEventListener('click', () => {
-      saveItems();
-      saveBtn.textContent = 'Saved ✓';
-      setTimeout(()=> saveBtn.textContent = 'Save', 1000);
-    });
-
-    // reset to samples
-    clearBtn.addEventListener('click', () => {
-      if(!confirm('Reset everything to sample items? This clears your saved items.')) return;
-      localStorage.removeItem(STORAGE_KEY);
-      items = SAMPLE.slice();
-      saveItems();
-      renderAll();
-    });
-
-    /* ===== helpers ===== */
+    // utility: generate id
     function idGen(){ return 'it_' + Math.random().toString(36).slice(2,9); }
 
-    function readFileAsDataURL(file){
-      return new Promise((resolve,reject)=>{
-        const fr = new FileReader();
-        fr.onload = ()=> resolve(fr.result);
-        fr.onerror = ()=> reject(fr.error);
-        fr.readAsDataURL(file);
-      });
-    }
-
-    function loadItems(){
+    // try load from localStorage (so user can reset to sample)
+    function loadSaved(){
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if(raw){
-          const parsed = JSON.parse(raw);
-          if(Array.isArray(parsed) && parsed.length) return parsed;
+        const raw = localStorage.getItem(SAMPLE_STORAGE_KEY);
+        if(raw) return JSON.parse(raw);
+      } catch(e){}
+      return null;
+    }
+
+    function saveCatalog(data){
+      try { localStorage.setItem(SAMPLE_STORAGE_KEY, JSON.stringify(data)); } catch(e){}
+    }
+
+    // create programmatic item name sets for variety
+    function createItems(){
+      const all = [];
+      CATEGORIES.forEach(cat => {
+        for(let i=1;i<=ITEMS_PER_CATEGORY;i++){
+          let name = '';
+          let price = 0;
+          let imageText = '';
+          if(cat === 'Toys'){
+            name = `Toy ${i} — Fun Set`;
+            price = randomInt(30,700);
+            imageText = `Toy+${i}`;
+          } else if(cat === 'Books'){
+            const bookTypes = ['Story', 'Math', 'Science', 'Programming', 'Novel', 'Poetry'];
+            name = `${bookTypes[i % bookTypes.length]} Book ${i}`;
+            price = randomInt(20,450);
+            imageText = `Book+${i}`;
+          } else if(cat === 'Dress'){
+            const dressTypes = ['Casual', 'Party', 'Ethnic', 'Summer', 'Winter'];
+            name = `${dressTypes[i % dressTypes.length]} Dress ${i}`;
+            price = randomInt(80,1200);
+            imageText = `Dress+${i}`;
+          } else { // Things
+            const thingsTypes = ['Table','Speaker','Lamp','Vase','Chair','Clock'];
+            name = `${thingsTypes[i % thingsTypes.length]} ${i}`;
+            price = randomInt(50,2500);
+            imageText = `Thing+${i}`;
+          }
+          // Build placeholder image URL with text
+          const image = `https://via.placeholder.com/600x400?text=${encodeURIComponent(imageText)}`;
+          all.push({ id:idGen(), category:cat, name, price, image, notes: '' });
         }
-      } catch(e) { console.warn('load error', e); }
-      // default samples
-      return SAMPLE.slice();
+      });
+      return all;
     }
 
-    function saveItems(){
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); } catch(e){ console.error('save error', e); alert('Unable to save — storage might be full.'); }
+    function randomInt(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
+
+    // initialize catalog (load saved or create)
+    let catalog = loadSaved();
+    if(!catalog){
+      catalog = createItems();
+      saveCatalog(catalog);
     }
 
-    /* ===== rendering ===== */
-    function renderAll(){
+    /* ============================
+       Rendering: categories + items
+       Name -> Price -> Budget tag -> Image (below price)
+       ============================ */
+    const categoriesEl = document.getElementById('categories');
+    const BUDGET = Number(getComputedStyle(document.documentElement).getPropertyValue('--budget-threshold')) || 100;
+
+    function renderCatalog(){
       categoriesEl.innerHTML = '';
       CATEGORIES.forEach(cat => {
-        const block = document.createElement('section');
-        block.className = 'category-card';
+        const catBlock = document.createElement('section');
+        catBlock.className = 'category-card';
 
-        // header
-        const head = document.createElement('div');
-        head.className = 'cat-head';
-        const title = document.createElement('div');
-        title.innerHTML = `<div class="cat-title">${cat}</div><div class="cat-desc">${items.filter(i=>i.category===cat).length} item(s) • budget-friendly ≤ ₹${BUDGET}</div>`;
-        head.appendChild(title);
+        const catHead = document.createElement('div');
+        catHead.className = 'cat-head';
+        const titleWrap = document.createElement('div');
+        const title = document.createElement('div'); title.className='cat-title'; title.textContent = cat;
+        const count = catalog.filter(i=>i.category===cat).length;
+        const desc = document.createElement('div'); desc.className='cat-desc'; desc.textContent = `${count} item(s) • Budget-friendly ≤ ₹${BUDGET}`;
+        titleWrap.appendChild(title); titleWrap.appendChild(desc);
+        catHead.appendChild(titleWrap);
 
-        const actionWrap = document.createElement('div');
-        // optional: sort or filter controls could go here
-        head.appendChild(actionWrap);
-        block.appendChild(head);
+        // optional actions placeholder
+        const actions = document.createElement('div');
+        catHead.appendChild(actions);
 
-        // grid
-        const grid = document.createElement('div');
-        grid.className = 'grid';
+        catBlock.appendChild(catHead);
 
-        const catItems = items.filter(i => i.category === cat);
+        const grid = document.createElement('div'); grid.className='grid';
+
+        const catItems = catalog.filter(i => i.category === cat);
         if(catItems.length === 0){
-          const empty = document.createElement('div');
-          empty.className = 'empty';
-          empty.textContent = 'No items yet — add one using the form above.';
+          const empty = document.createElement('div'); empty.className='empty'; empty.textContent = 'No items in this category.';
           grid.appendChild(empty);
         } else {
-          catItems.forEach(it => grid.appendChild(makeCard(it)));
+          catItems.forEach(item => grid.appendChild(createCard(item)));
         }
 
-        block.appendChild(grid);
-        categoriesEl.appendChild(block);
+        catBlock.appendChild(grid);
+        categoriesEl.appendChild(catBlock);
       });
     }
 
-    function makeCard(item){
+    function createCard(item){
       const card = document.createElement('article');
       card.className = 'card';
-      card.dataset.id = item.id;
+      card.setAttribute('data-id', item.id);
 
-      // body
+      // body: name + price + budget + remove
       const body = document.createElement('div'); body.className='body';
-      const nm = document.createElement('h3'); nm.className='name'; nm.textContent = item.name; body.appendChild(nm);
+      const nm = document.createElement('h3'); nm.className='name'; nm.textContent = item.name;
+      body.appendChild(nm);
 
       const priceRow = document.createElement('div'); priceRow.className='price-row';
       const price = document.createElement('div'); price.className='price';
@@ -338,24 +352,23 @@
       priceRow.appendChild(price);
 
       if(item.price !== null && item.price !== undefined && !isNaN(Number(item.price)) && Number(item.price) <= BUDGET){
-        const b = document.createElement('div'); b.className='budget'; b.textContent='Budget-friendly'; priceRow.appendChild(b);
+        const b = document.createElement('div'); b.className='budget'; b.textContent='Budget-friendly';
+        priceRow.appendChild(b);
       }
 
-      // remove button
-      const removeBtn = document.createElement('button'); removeBtn.className='remove';
-      removeBtn.textContent = 'Remove';
+      const removeBtn = document.createElement('button'); removeBtn.className='remove'; removeBtn.textContent='Remove';
       removeBtn.addEventListener('click', ()=>{
-        if(!confirm(`Remove "${item.name}"?`)) return;
-        items = items.filter(x => x.id !== item.id);
-        saveItems();
-        renderAll();
+        if(!confirm(`Remove "${item.name}" from catalog?`)) return;
+        catalog = catalog.filter(x => x.id !== item.id);
+        saveCatalog(catalog);
+        renderCatalog();
       });
       priceRow.appendChild(removeBtn);
 
       body.appendChild(priceRow);
       card.appendChild(body);
 
-      // image below
+      // image below price
       const imgWrap = document.createElement('div'); imgWrap.className='image-wrap';
       const img = document.createElement('img'); img.alt = item.name; img.loading='lazy';
       img.src = item.image || 'https://via.placeholder.com/600x400?text=No+Image';
@@ -363,17 +376,54 @@
       imgWrap.appendChild(img);
       card.appendChild(imgWrap);
 
-      // meta
+      // meta line
       const meta = document.createElement('div'); meta.className='meta';
-      meta.innerHTML = `<div style="color:var(--muted);font-size:0.9rem">${item.notes || ''}</div>`;
+      meta.innerHTML = `<div style="color:var(--muted)">${item.notes || ''}</div>`;
       card.appendChild(meta);
 
       return card;
     }
 
-    // keyboard shortcut: Enter in name field adds
-    nameInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') addBtn.click(); });
+    // initial render
+    renderCatalog();
 
+    /* ============================
+       Demo controls: Reset samples
+       ============================ */
+    document.getElementById('demo-add-sample').addEventListener('click', ()=>{
+      if(!confirm('Reset catalog to freshly generated sample items?')) return;
+      catalog = createItems();
+      saveCatalog(catalog);
+      renderCatalog();
+      alert('Catalog reset to sample items. You can remove individual items as needed.');
+    });
+
+    // contact form: open mail client with fields (mailto)
+    const contactForm = document.getElementById('contact-form');
+    contactForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const name = document.getElementById('c-name').value.trim();
+      const email = document.getElementById('c-email').value.trim();
+      const subject = document.getElementById('c-subject').value.trim() || 'Contact from Item Swap Marketplace';
+      const message = document.getElementById('c-message').value.trim();
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+      const mailto = `mailto:info@itemswap.example?subject=${encodeURIComponent(subject)}&body=${body}`;
+      window.location.href = mailto;
+    });
+    document.getElementById('contact-reset').addEventListener('click', ()=> contactForm.reset());
+
+    // Reset everything button (clear storage and reload)
+    document.getElementById('clearAll').addEventListener('click', ()=>{
+      if(!confirm('Clear saved catalog and reset to sample items?')) return;
+      localStorage.removeItem(SAMPLE_STORAGE_KEY);
+      catalog = createItems();
+      saveCatalog(catalog);
+      renderCatalog();
+      alert('Reset complete.');
+    });
+
+    // set initial nav state
+    showPage('welcome');
   </script>
 </body>
 </html>
