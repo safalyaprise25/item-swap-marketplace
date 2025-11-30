@@ -1,0 +1,73 @@
+<!doctype html>
+card.appendChild(title);
+
+
+// Image section
+const wrap = document.createElement('div');
+wrap.className = 'image-wrap';
+const img = document.createElement('img');
+img.src = item.image || 'https://via.placeholder.com/600x400?text=No+Image';
+img.alt = item.name || 'Item image';
+img.loading = 'lazy';
+wrap.appendChild(img);
+card.appendChild(wrap);
+
+
+// Meta: price under image
+const meta = document.createElement('div');
+meta.className = 'meta';
+const price = document.createElement('div');
+price.className = 'price';
+price.textContent = item.price ? '₹' + Number(item.price).toFixed(2) : 'Free / Swap';
+meta.appendChild(price);
+
+
+const loc = document.createElement('div');
+loc.className = 'location';
+loc.textContent = item.location || '';
+meta.appendChild(loc);
+
+
+card.appendChild(meta);
+
+
+return card;
+}
+
+
+function render(items){
+grid.innerHTML = '';
+items.forEach(i => grid.appendChild(createCard(i)));
+}
+
+
+// load starter
+render(starterItems);
+
+
+// Add new item (client-side)
+document.getElementById('addBtn').addEventListener('click', () => {
+const name = document.getElementById('itemName').value.trim();
+const image = document.getElementById('itemImage').value.trim();
+const price = document.getElementById('itemPrice').value.trim();
+
+
+if(!name){
+alert('Please enter an item name.');
+return;
+}
+
+
+const newItem = { name, image: image || 'https://via.placeholder.com/600x400?text=No+Image', price: price? Number(price): null };
+starterItems.unshift(newItem); // add to front
+render(starterItems);
+
+
+// clear inputs
+document.getElementById('itemName').value = '';
+document.getElementById('itemImage').value = '';
+document.getElementById('itemPrice').value = '';
+});
+</script>
+</body>
+</html>
