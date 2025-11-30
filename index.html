@@ -3,226 +3,222 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Item Swap Marketplace — Demo</title>
-
+  <title>Item Swap Marketplace — Categories</title>
+  <meta name="description" content="A colorful Item Swap Marketplace demo split by categories: Toys, Books, Dress, Things.">
   <style>
     :root{
-      --bg:#f5f7fb;
-      --card:#ffffff;
-      --accent:#1f7aed;
-      --muted:#6b7280;
-      --radius:12px;
+      --bg: #0f172a;            /* deep navy backdrop */
+      --card: #0b1220;          /* darker card base */
+      --glass: rgba(255,255,255,0.04);
+      --muted: #9aa6c2;
+      --accent-1: #ff6b6b;      /* coral */
+      --accent-2: #6be7c6;      /* mint */
+      --accent-3: #ffd166;      /* warm yellow */
+      --accent-4: #7c5cff;      /* violet */
+      --radius: 14px;
+      --maxw: 1200px;
+      --budget-threshold: 100;  /* ₹100 considered budget-friendly */
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:var(--bg);
-      color:#111827;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,92,255,0.12), transparent),
+                  radial-gradient(1000px 500px at 90% 90%, rgba(255,107,107,0.08), transparent),
+                  var(--bg);
+      color:#e6eef8;
       -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      padding-bottom:40px;
     }
 
     header{
-      background:linear-gradient(90deg,#0ea5e9,#7c3aed);
-      color:white;
+      max-width:var(--maxw);
+      margin:22px auto;
       padding:18px;
-    }
-    .container{max-width:1100px;margin:20px auto;padding:0 16px}
-
-    h1{margin:0;font-size:1.3rem}
-    p.lead{margin:6px 0 0;color:rgba(255,255,255,0.95);font-size:0.95rem}
-
-    /* FORM */
-    .form-card{
+      border-radius:18px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
       display:flex;
-      gap:8px;
-      align-items:center;
-      padding:12px;
-      background:var(--card);
-      border-radius:var(--radius);
-      box-shadow:0 6px 18px rgba(16,24,40,0.06);
-      margin-bottom:16px;
-      flex-wrap:wrap;
-    }
-    .form-card input[type="text"],
-    .form-card input[type="url"],
-    .form-card input[type="number"]{
-      padding:10px;
-      border-radius:8px;
-      border:1px solid #e6e9ef;
-      font-size:0.95rem;
-      min-width:160px;
-    }
-    .form-card label{font-size:0.85rem;color:var(--muted)}
-    .btn{
-      background:var(--accent);
-      color:white;
-      border:none;
-      padding:10px 14px;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:600;
-    }
-    .btn:active{transform:translateY(1px)}
-
-    /* GRID */
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
       gap:18px;
-      margin-top:12px;
-    }
-
-    /* CARD */
-    .card{
-      background:var(--card);
-      border-radius:14px;
-      overflow:hidden;
-      box-shadow:0 6px 18px rgba(16,24,40,0.06);
-      display:flex;
-      flex-direction:column;
-    }
-    .card .card-body{padding:12px 14px}
-    .item-name{font-weight:700;margin:0 0 6px;font-size:1rem}
-    .item-price{color:var(--accent);font-weight:700;margin:0 0 10px}
-    .item-image{
-      width:100%;
-      height:190px;
-      background:#f3f4f6;
-      display:flex;
       align-items:center;
-      justify-content:center;
-      overflow:hidden;
+      justify-content:space-between;
+      padding-left:28px;
+      padding-right:28px;
     }
-    .item-image img{width:100%;height:100%;object-fit:cover;display:block}
-
-    .meta{font-size:0.85rem;color:var(--muted);padding:10px 14px 16px}
-
-    @media (max-width:520px){
-      .item-image{height:150px}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent-4),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;color:white;box-shadow:0 6px 18px rgba(124,92,255,0.22);
     }
+    h1{margin:0;font-size:1.15rem}
+    p.lead{margin:0;color:var(--muted);font-size:0.95rem}
 
-    .note{font-size:0.85rem;color:var(--muted);margin-top:6px}
+    .controls{display:flex;gap:12px;align-items:center}
+    .chip{background:var(--glass);padding:8px 12px;border-radius:999px;font-size:0.9rem;color:var(--muted);border:1px solid rgba(255,255,255,0.03)}
+    .new-btn{background:linear-gradient(90deg,var(--accent-2),var(--accent-3));color:#07211a;padding:10px 14px;border-radius:10px;border:none;font-weight:700;cursor:pointer;box-shadow:0 8px 30px rgba(107,231,198,0.12)}
+
+    .container{max-width:var(--maxw);margin:18px auto;padding:0 18px}
+
+/* --- add item form --- */
+    .add-panel{
+      margin-top:8px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;border:1px solid rgba(255,255,255,0.03);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.45);
+    }
+    .field{display:flex;flex-direction:column;gap:6px;min-width:160px}
+    label{font-size:0.82rem;color:var(--muted)}
+    input[type="text"], input[type="number"], input[type="url"], select{
+      padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit;font-size:0.95rem;outline:none;
+      box-shadow: inset 0 -1px 0 rgba(255,255,255,0.02);
+    }
+    .add-actions{display:flex;gap:8px;align-items:center}
+    .btn{padding:10px 12px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--accent-4),var(--accent-2));color:#041018}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+
+    .note{font-size:0.82rem;color:var(--muted);margin-top:6px}
+
+/* --- categories layout --- */
+    .categories{display:grid;grid-template-columns:1fr;gap:22px;margin-top:22px}
+    .category-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+      padding:14px;border-radius:14px;border:1px solid rgba(255,255,255,0.03);
+    }
+    .cat-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+    .cat-title{font-weight:800;font-size:1.05rem}
+    .cat-desc{color:var(--muted);font-size:0.92rem}
+
+/* --- grid inside each category --- */
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:10px}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;padding:0;overflow:hidden;border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(6px);
+      display:flex;flex-direction:column;min-height:280px;
+    }
+    .card .body{padding:12px 12px 6px;flex:0}
+    .name{font-weight:800;margin:0 0 6px;font-size:0.98rem}
+    .price-row{display:flex;align-items:center;gap:8px;justify-content:space-between}
+    .price{font-weight:900;color:var(--accent-3);font-size:1rem}
+    .budget{background:linear-gradient(90deg,var(--accent-2),var(--accent-4));color:#022;padding:6px 8px;border-radius:999px;font-weight:700;font-size:0.8rem}
+
+    .image-wrap{flex:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));height:160px;overflow:hidden}
+    .image-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+
+    .meta{padding:10px 12px 14px;color:var(--muted);font-size:0.86rem}
+
+/* --- empty state --- */
+    .empty{padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px dashed rgba(255,255,255,0.03);color:var(--muted);text-align:center}
+
+/* responsive adjustments */
+    @media (min-width:880px){
+      .categories{grid-template-columns:1fr}
+    }
+    @media (max-width:720px){
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+      .add-panel{flex-direction:column;align-items:stretch}
+      .grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+    }
   </style>
 </head>
 <body>
   <header>
-    <div class="container">
-      <h1>Item Swap Marketplace — Demo</h1>
-      <p class="lead">Add items with correct item name, price, and picture (picture appears under the price).</p>
+    <div class="brand">
+      <div class="logo">IS</div>
+      <div>
+        <h1>Item Swap Marketplace</h1>
+        <p class="lead">Organized categories — Toys • Books • Dress • Things — add items & find budget-friendly deals</p>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="chip">Swap & Save</div>
+      <button class="new-btn" id="clearAll">Clear All</button>
     </div>
   </header>
 
-  <main class="container" aria-live="polite">
-    <!-- add item form -->
-    <div class="form-card" role="region" aria-label="Add new item">
-      <div style="display:flex;flex-direction:column;">
-        <label for="name">Item name</label>
-        <input id="name" type="text" placeholder="e.g., Leather Jacket" />
+  <main class="container" role="main">
+    <!-- add-item panel -->
+    <section class="add-panel" aria-label="Add new item">
+      <div class="field" style="flex:2;min-width:220px">
+        <label for="item-name">Item name</label>
+        <input id="item-name" type="text" placeholder="e.g., Teddy Bear, Math Book, Party Dress">
       </div>
 
-      <div style="display:flex;flex-direction:column;">
-        <label for="price">Price (₹) — leave empty for 'Swap/Free'</label>
-        <input id="price" type="number" min="0" step="0.01" placeholder="e.g., 120" />
+      <div class="field" style="width:140px">
+        <label for="item-price">Price (₹)</label>
+        <input id="item-price" type="number" min="0" step="0.01" placeholder="e.g., 75">
       </div>
 
-      <div style="display:flex;flex-direction:column;flex:1;min-width:200px;">
-        <label for="image">Image URL</label>
-        <input id="image" type="url" placeholder="https://example.com/photo.jpg" />
+      <div class="field" style="flex:1;min-width:210px">
+        <label for="item-image">Image URL</label>
+        <input id="item-image" type="url" placeholder="https://via.placeholder.com/600x400?text=Item+Image">
       </div>
 
-      <div style="display:flex;flex-direction:column;align-items:flex-end;">
-        <label style="visibility:hidden">Add</label>
-        <button id="add" class="btn">Add Item</button>
+      <div class="field" style="width:160px">
+        <label for="item-category">Category</label>
+        <select id="item-category" aria-label="Category select">
+          <option value="Toys">Toys</option>
+          <option value="Books">Books</option>
+          <option value="Dress">Dress</option>
+          <option value="Things">Things</option>
+        </select>
       </div>
 
-      <div style="width:100%;margin-top:8px">
-        <small class="note">Tip: Use any public image URL (for testing try https://via.placeholder.com/600x400?text=Item).</small>
+      <div class="add-actions">
+        <button id="add-item" class="btn btn-primary">Add Item</button>
+        <button id="save-local" class="btn btn-ghost" title="Save current items to browser (auto-saves too)">Save</button>
       </div>
-    </div>
 
-    <!-- items grid -->
-    <section id="grid" class="grid" aria-label="Items list">
-      <!-- cards will be inserted here -->
+      <div style="flex-basis:100%"></div>
+      <div class="note">Tip: paste any public image URL. Budget-friendly items are shown with a special tag when price ≤ ₹100.</div>
+    </section>
+
+    <!-- categories -->
+    <section class="categories" id="categories">
+      <!-- each category block is generated by JS -->
     </section>
   </main>
 
   <script>
-    // initial sample items
-    const items = [
-      { name: 'Vintage Leather Jacket', price: 120, image: 'https://via.placeholder.com/600x400?text=Leather+Jacket', location: 'Erode, India' },
-      { name: 'Canon DSLR Camera', price: 350, image: 'https://via.placeholder.com/600x400?text=DSLR+Camera', location: 'Chennai, India' },
-      { name: 'BTS Poster Set', price: 15, image: 'https://via.placeholder.com/600x400?text=BTS+Poster+Set', location: 'Coimbatore, India' }
+    /* === Data model & persistence === */
+    const CATEGORIES = ['Toys','Books','Dress','Things'];
+    const STORAGE_KEY = 'itemSwap.categories.v1';
+    const BUDGET_THRESHOLD = Number(getComputedStyle(document.documentElement).getPropertyValue('--budget-threshold')) || 100;
+
+    // sample items
+    const SAMPLE = [
+      { id: genId(), name: 'Plush Teddy Bear', price: 80, image: 'https://via.placeholder.com/600x400?text=Teddy+Bear', category: 'Toys', notes: 'Soft & cuddly' },
+      { id: genId(), name: 'Children Story Book', price: 60, image: 'https://via.placeholder.com/600x400?text=Story+Book', category: 'Books', notes: 'Good condition' },
+      { id: genId(), name: 'Floral Party Dress', price: 450, image: 'https://via.placeholder.com/600x400?text=Party+Dress', category: 'Dress', notes: 'Size M' },
+      { id: genId(), name: 'Wooden Study Table', price: 1200, image: 'https://via.placeholder.com/600x400?text=Study+Table', category: 'Things', notes: 'Sturdy' }
     ];
 
-    const grid = document.getElementById('grid');
-    const nameInput = document.getElementById('name');
-    const priceInput = document.getElementById('price');
-    const imageInput = document.getElementById('image');
-    const addBtn = document.getElementById('add');
+    // load from localStorage or use sample
+    let items = loadItems();
 
-    // create single card DOM element. Layout: Name -> Price -> Picture (below price)
-    function createCard(item){
-      const card = document.createElement('article');
-      card.className = 'card';
-      card.setAttribute('role', 'article');
+    // DOM elements
+    const categoriesEl = document.getElementById('categories');
+    const nameInput = document.getElementById('item-name');
+    const priceInput = document.getElementById('item-price');
+    const imageInput = document.getElementById('item-image');
+    const categorySelect = document.getElementById('item-category');
+    const addBtn = document.getElementById('add-item');
+    const saveBtn = document.getElementById('save-local');
+    const clearBtn = document.getElementById('clearAll');
 
-      // body with name and price
-      const body = document.createElement('div');
-      body.className = 'card-body';
+    // initial render
+    renderCategories();
 
-      const nm = document.createElement('h2');
-      nm.className = 'item-name';
-      nm.textContent = item.name || 'Untitled item';
-      body.appendChild(nm);
-
-      const pr = document.createElement('div');
-      pr.className = 'item-price';
-      pr.textContent = (item.price !== undefined && item.price !== null && item.price !== '') ? '₹' + Number(item.price).toFixed(2) : 'Swap / Free';
-      body.appendChild(pr);
-
-      card.appendChild(body);
-
-      // image appears below the price (separate section)
-      const imgWrap = document.createElement('div');
-      imgWrap.className = 'item-image';
-      const img = document.createElement('img');
-      img.alt = item.name || 'Item image';
-      img.loading = 'lazy';
-
-      // Validate image URL by trying to load; fall back to placeholder on error
-      const url = item.image && item.image.trim() ? item.image.trim() : 'https://via.placeholder.com/600x400?text=No+Image';
-      img.src = url;
-      img.addEventListener('error', () => {
-        img.src = 'https://via.placeholder.com/600x400?text=No+Image';
-      });
-
-      imgWrap.appendChild(img);
-      card.appendChild(imgWrap);
-
-      // meta info (optional)
-      if(item.location){
-        const meta = document.createElement('div');
-        meta.className = 'meta';
-        meta.textContent = item.location;
-        card.appendChild(meta);
-      }
-
-      return card;
-    }
-
-    // render grid
-    function render(){
-      grid.innerHTML = '';
-      items.forEach(it => grid.appendChild(createCard(it)));
-    }
-
-    // form behavior: add item to top of list
+    // event handlers
     addBtn.addEventListener('click', () => {
       const name = nameInput.value.trim();
-      const price = priceInput.value.trim();
+      const priceVal = priceInput.value.trim();
       const image = imageInput.value.trim();
+      const category = categorySelect.value;
 
       if(!name){
         alert('Please enter an item name.');
@@ -230,31 +226,170 @@
         return;
       }
 
-      // basic image URL check (starts with http)
-      const imageUrl = (image && (image.startsWith('http://') || image.startsWith('https://'))) ? image : '';
+      const price = priceVal === '' ? null : Number(priceVal);
+      const imageUrl = (image && (image.startsWith('http://') || image.startsWith('https://'))) ? image : 'https://via.placeholder.com/600x400?text=No+Image';
 
-      // push new item to beginning
-      items.unshift({
-        name,
-        price: price === '' ? null : Number(price),
-        image: imageUrl || 'https://via.placeholder.com/600x400?text=No+Image',
-        location: '' // optional
-      });
+      const newItem = { id: genId(), name, price, image: imageUrl, category, notes: '' };
+      items.unshift(newItem);
+      saveItems();
+      renderCategories();
 
-      // clear inputs
       nameInput.value = '';
       priceInput.value = '';
       imageInput.value = '';
-
-      render();
-
-      // move focus back to name input
       nameInput.focus();
     });
 
-    // initial render
-    render();
+    saveBtn.addEventListener('click', () => {
+      saveItems();
+      saveBtn.textContent = 'Saved ✓';
+      setTimeout(()=> saveBtn.textContent = 'Save', 1100);
+    });
+
+    clearBtn.addEventListener('click', () => {
+      if(!confirm('Clear ALL saved items and reset to sample items?')) return;
+      localStorage.removeItem(STORAGE_KEY);
+      items = SAMPLE.slice();
+      saveItems();
+      renderCategories();
+    });
+
+    // helper: generate simple id
+    function genId(){ return 'i_' + Math.random().toString(36).slice(2,9); }
+
+    function loadItems(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if(raw){
+          const parsed = JSON.parse(raw);
+          if(Array.isArray(parsed) && parsed.length) return parsed;
+        }
+      }catch(e){}
+      // clone sample to avoid mutating constant
+      return SAMPLE.slice();
+    }
+
+    function saveItems(){
+      try{
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      }catch(e){
+        console.error('Unable to save', e);
+      }
+    }
+
+    /* === Rendering === */
+    function renderCategories(){
+      categoriesEl.innerHTML = '';
+      CATEGORIES.forEach(cat => {
+        const block = document.createElement('section');
+        block.className = 'category-card';
+        const header = document.createElement('div');
+        header.className = 'cat-head';
+        const title = document.createElement('div');
+        title.className = 'cat-title';
+        title.textContent = cat;
+        const desc = document.createElement('div');
+        desc.className = 'cat-desc';
+        const count = items.filter(it => it.category === cat).length;
+        desc.textContent = `${count} item${count !== 1 ? 's' : ''} • budget-friendly ≤ ₹${BUDGET_THRESHOLD}`;
+
+        header.appendChild(title);
+        header.appendChild(desc);
+        block.appendChild(header);
+
+        const catGrid = document.createElement('div');
+        catGrid.className = 'grid';
+
+        const catItems = items.filter(it => it.category === cat);
+        if(catItems.length === 0){
+          const empty = document.createElement('div');
+          empty.className = 'empty';
+          empty.textContent = 'No items yet in this category — add one using the form above.';
+          catGrid.appendChild(empty);
+        }else{
+          catItems.forEach(it => catGrid.appendChild(createCard(it)));
+        }
+
+        block.appendChild(catGrid);
+        categoriesEl.appendChild(block);
+      });
+    }
+
+    function createCard(item){
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.setAttribute('data-id', item.id);
+
+      // top body (name + price + budget tag)
+      const body = document.createElement('div');
+      body.className = 'body';
+      const name = document.createElement('h3');
+      name.className = 'name';
+      name.textContent = item.name;
+      body.appendChild(name);
+
+      const priceRow = document.createElement('div');
+      priceRow.className = 'price-row';
+
+      const price = document.createElement('div');
+      price.className = 'price';
+      price.textContent = (item.price === null || item.price === undefined || item.price === '') ? 'Swap / Free' : '₹' + Number(item.price).toFixed(2);
+      priceRow.appendChild(price);
+
+      if(item.price !== null && item.price !== undefined && item.price !== '' && Number(item.price) <= BUDGET_THRESHOLD){
+        const budget = document.createElement('div');
+        budget.className = 'budget';
+        budget.textContent = 'Budget-friendly';
+        priceRow.appendChild(budget);
+      }
+
+      // delete button
+      const delBtn = document.createElement('button');
+      delBtn.className = 'btn btn-ghost';
+      delBtn.style.padding = '6px 8px';
+      delBtn.style.fontSize = '0.85rem';
+      delBtn.textContent = 'Remove';
+      delBtn.addEventListener('click', ()=>{
+        if(!confirm(`Remove "${item.name}"?`)) return;
+        items = items.filter(x => x.id !== item.id);
+        saveItems();
+        renderCategories();
+      });
+      priceRow.appendChild(delBtn);
+
+      body.appendChild(priceRow);
+      card.appendChild(body);
+
+      // image below price
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'image-wrap';
+      const img = document.createElement('img');
+      img.alt = item.name;
+      img.loading = 'lazy';
+      img.src = item.image || 'https://via.placeholder.com/600x400?text=No+Image';
+      img.addEventListener('error', ()=> img.src = 'https://via.placeholder.com/600x400?text=No+Image');
+      imgWrap.appendChild(img);
+      card.appendChild(imgWrap);
+
+      // meta
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent = item.notes || '';
+      card.appendChild(meta);
+
+      return card;
+    }
+
+    // auto-save on changes (debounced)
+    let saveTimer = null;
+    function scheduleAutoSave(){
+      if(saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(()=> { saveItems(); }, 700);
+    }
+    // call scheduleAutoSave whenever items changes inside code paths (already saving immediately after changes)
+
+    // keyboard-friendly: Enter adds when focused in name field
+    nameInput.addEventListener('keydown', (e) => { if(e.key === 'Enter') addBtn.click(); });
   </script>
 </body>
 </html>
-
