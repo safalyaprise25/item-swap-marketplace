@@ -1,73 +1,260 @@
 <!doctype html>
-card.appendChild(title);
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Item Swap Marketplace — Demo</title>
 
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --accent:#1f7aed;
+      --muted:#6b7280;
+      --radius:12px;
+    }
 
-// Image section
-const wrap = document.createElement('div');
-wrap.className = 'image-wrap';
-const img = document.createElement('img');
-img.src = item.image || 'https://via.placeholder.com/600x400?text=No+Image';
-img.alt = item.name || 'Item image';
-img.loading = 'lazy';
-wrap.appendChild(img);
-card.appendChild(wrap);
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:#111827;
+      -webkit-font-smoothing:antialiased;
+    }
 
+    header{
+      background:linear-gradient(90deg,#0ea5e9,#7c3aed);
+      color:white;
+      padding:18px;
+    }
+    .container{max-width:1100px;margin:20px auto;padding:0 16px}
 
-// Meta: price under image
-const meta = document.createElement('div');
-meta.className = 'meta';
-const price = document.createElement('div');
-price.className = 'price';
-price.textContent = item.price ? '₹' + Number(item.price).toFixed(2) : 'Free / Swap';
-meta.appendChild(price);
+    h1{margin:0;font-size:1.3rem}
+    p.lead{margin:6px 0 0;color:rgba(255,255,255,0.95);font-size:0.95rem}
 
+    /* FORM */
+    .form-card{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      padding:12px;
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:0 6px 18px rgba(16,24,40,0.06);
+      margin-bottom:16px;
+      flex-wrap:wrap;
+    }
+    .form-card input[type="text"],
+    .form-card input[type="url"],
+    .form-card input[type="number"]{
+      padding:10px;
+      border-radius:8px;
+      border:1px solid #e6e9ef;
+      font-size:0.95rem;
+      min-width:160px;
+    }
+    .form-card label{font-size:0.85rem;color:var(--muted)}
+    .btn{
+      background:var(--accent);
+      color:white;
+      border:none;
+      padding:10px 14px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .btn:active{transform:translateY(1px)}
 
-const loc = document.createElement('div');
-loc.className = 'location';
-loc.textContent = item.location || '';
-meta.appendChild(loc);
+    /* GRID */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+      gap:18px;
+      margin-top:12px;
+    }
 
+    /* CARD */
+    .card{
+      background:var(--card);
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 6px 18px rgba(16,24,40,0.06);
+      display:flex;
+      flex-direction:column;
+    }
+    .card .card-body{padding:12px 14px}
+    .item-name{font-weight:700;margin:0 0 6px;font-size:1rem}
+    .item-price{color:var(--accent);font-weight:700;margin:0 0 10px}
+    .item-image{
+      width:100%;
+      height:190px;
+      background:#f3f4f6;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    .item-image img{width:100%;height:100%;object-fit:cover;display:block}
 
-card.appendChild(meta);
+    .meta{font-size:0.85rem;color:var(--muted);padding:10px 14px 16px}
 
+    @media (max-width:520px){
+      .item-image{height:150px}
+    }
 
-return card;
-}
+    .note{font-size:0.85rem;color:var(--muted);margin-top:6px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Item Swap Marketplace — Demo</h1>
+      <p class="lead">Add items with correct item name, price, and picture (picture appears under the price).</p>
+    </div>
+  </header>
 
+  <main class="container" aria-live="polite">
+    <!-- add item form -->
+    <div class="form-card" role="region" aria-label="Add new item">
+      <div style="display:flex;flex-direction:column;">
+        <label for="name">Item name</label>
+        <input id="name" type="text" placeholder="e.g., Leather Jacket" />
+      </div>
 
-function render(items){
-grid.innerHTML = '';
-items.forEach(i => grid.appendChild(createCard(i)));
-}
+      <div style="display:flex;flex-direction:column;">
+        <label for="price">Price (₹) — leave empty for 'Swap/Free'</label>
+        <input id="price" type="number" min="0" step="0.01" placeholder="e.g., 120" />
+      </div>
 
+      <div style="display:flex;flex-direction:column;flex:1;min-width:200px;">
+        <label for="image">Image URL</label>
+        <input id="image" type="url" placeholder="https://example.com/photo.jpg" />
+      </div>
 
-// load starter
-render(starterItems);
+      <div style="display:flex;flex-direction:column;align-items:flex-end;">
+        <label style="visibility:hidden">Add</label>
+        <button id="add" class="btn">Add Item</button>
+      </div>
 
+      <div style="width:100%;margin-top:8px">
+        <small class="note">Tip: Use any public image URL (for testing try https://via.placeholder.com/600x400?text=Item).</small>
+      </div>
+    </div>
 
-// Add new item (client-side)
-document.getElementById('addBtn').addEventListener('click', () => {
-const name = document.getElementById('itemName').value.trim();
-const image = document.getElementById('itemImage').value.trim();
-const price = document.getElementById('itemPrice').value.trim();
+    <!-- items grid -->
+    <section id="grid" class="grid" aria-label="Items list">
+      <!-- cards will be inserted here -->
+    </section>
+  </main>
 
+  <script>
+    // initial sample items
+    const items = [
+      { name: 'Vintage Leather Jacket', price: 120, image: 'https://via.placeholder.com/600x400?text=Leather+Jacket', location: 'Erode, India' },
+      { name: 'Canon DSLR Camera', price: 350, image: 'https://via.placeholder.com/600x400?text=DSLR+Camera', location: 'Chennai, India' },
+      { name: 'BTS Poster Set', price: 15, image: 'https://via.placeholder.com/600x400?text=BTS+Poster+Set', location: 'Coimbatore, India' }
+    ];
 
-if(!name){
-alert('Please enter an item name.');
-return;
-}
+    const grid = document.getElementById('grid');
+    const nameInput = document.getElementById('name');
+    const priceInput = document.getElementById('price');
+    const imageInput = document.getElementById('image');
+    const addBtn = document.getElementById('add');
 
+    // create single card DOM element. Layout: Name -> Price -> Picture (below price)
+    function createCard(item){
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.setAttribute('role', 'article');
 
-const newItem = { name, image: image || 'https://via.placeholder.com/600x400?text=No+Image', price: price? Number(price): null };
-starterItems.unshift(newItem); // add to front
-render(starterItems);
+      // body with name and price
+      const body = document.createElement('div');
+      body.className = 'card-body';
 
+      const nm = document.createElement('h2');
+      nm.className = 'item-name';
+      nm.textContent = item.name || 'Untitled item';
+      body.appendChild(nm);
 
-// clear inputs
-document.getElementById('itemName').value = '';
-document.getElementById('itemImage').value = '';
-document.getElementById('itemPrice').value = '';
-});
-</script>
+      const pr = document.createElement('div');
+      pr.className = 'item-price';
+      pr.textContent = (item.price !== undefined && item.price !== null && item.price !== '') ? '₹' + Number(item.price).toFixed(2) : 'Swap / Free';
+      body.appendChild(pr);
+
+      card.appendChild(body);
+
+      // image appears below the price (separate section)
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'item-image';
+      const img = document.createElement('img');
+      img.alt = item.name || 'Item image';
+      img.loading = 'lazy';
+
+      // Validate image URL by trying to load; fall back to placeholder on error
+      const url = item.image && item.image.trim() ? item.image.trim() : 'https://via.placeholder.com/600x400?text=No+Image';
+      img.src = url;
+      img.addEventListener('error', () => {
+        img.src = 'https://via.placeholder.com/600x400?text=No+Image';
+      });
+
+      imgWrap.appendChild(img);
+      card.appendChild(imgWrap);
+
+      // meta info (optional)
+      if(item.location){
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+        meta.textContent = item.location;
+        card.appendChild(meta);
+      }
+
+      return card;
+    }
+
+    // render grid
+    function render(){
+      grid.innerHTML = '';
+      items.forEach(it => grid.appendChild(createCard(it)));
+    }
+
+    // form behavior: add item to top of list
+    addBtn.addEventListener('click', () => {
+      const name = nameInput.value.trim();
+      const price = priceInput.value.trim();
+      const image = imageInput.value.trim();
+
+      if(!name){
+        alert('Please enter an item name.');
+        nameInput.focus();
+        return;
+      }
+
+      // basic image URL check (starts with http)
+      const imageUrl = (image && (image.startsWith('http://') || image.startsWith('https://'))) ? image : '';
+
+      // push new item to beginning
+      items.unshift({
+        name,
+        price: price === '' ? null : Number(price),
+        image: imageUrl || 'https://via.placeholder.com/600x400?text=No+Image',
+        location: '' // optional
+      });
+
+      // clear inputs
+      nameInput.value = '';
+      priceInput.value = '';
+      imageInput.value = '';
+
+      render();
+
+      // move focus back to name input
+      nameInput.focus();
+    });
+
+    // initial render
+    render();
+  </script>
 </body>
 </html>
+
