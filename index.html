@@ -3,113 +3,101 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Item Swap Marketplace — Pro Marketplace Demo</title>
-  <meta name="description" content="Professional Item Swap Marketplace demo — white & purple theme, multi-category catalog, product pages, filters, and contact.">
+  <title>Item Swap Marketplace — Colorful Shop</title>
+  <meta name="description" content="Colorful Item Swap Marketplace — Welcome → Categories → ShopDetails & Contact">
   <style>
     /* ---------- THEME / RESET ---------- */
     :root{
-      --white:#ffffff;
-      --bg:#f6f7fb;
-      --panel:#fbf8ff;            /* light purple panel */
-      --muted:#6b6b7a;
-      --text:#0f1724;
-      --accent:#6b46c1;           /* purple */
-      --accent-2:#9f7aea;
-      --success:#16a34a;
-      --danger:#ef4444;
-      --glass: rgba(107,70,193,0.06);
-      --radius:12px;
+      --bg: #FFF8FF;
+      --card: #ffffff;
+      --muted: #6b6b7a;
+      --text: #111827;
+      --accent-1: #7C3AED; /* purple */
+      --accent-2: #FF6B6B; /* coral */
+      --accent-3: #00C2A8; /* teal */
+      --accent-4: #FFD166; /* warm yellow */
+      --glass: rgba(124,58,237,0.06);
+      --radius:14px;
       --maxw:1200px;
-      --shadow: 0 8px 24px rgba(15,23,42,0.06);
+      --shadow: 0 12px 30px rgba(12,20,40,0.08);
       --budget-threshold:100;
-      --card-gap:16px;
     }
     *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--text);background:linear-gradient(180deg,#fff,#fff8ff)}
     a{color:inherit;text-decoration:none}
     button{font-family:inherit}
 
     /* ---------- LAYOUT ---------- */
     header{
-      background:linear-gradient(90deg,var(--white), #fbf9ff);
-      border-bottom:1px solid rgba(16,24,40,0.04);
-      position:sticky;top:0;z-index:1200;
-      box-shadow:0 4px 10px rgba(15,23,42,0.03);
+      position:sticky;top:0;z-index:1200;background:transparent;padding:14px 0;border-bottom:1px solid rgba(16,24,40,0.03);
+      backdrop-filter: blur(4px);
     }
-    .topbar{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:18px;padding:12px 18px}
-    .logo{display:flex;align-items:center;gap:12px}
-    .logo-badge{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:18px;box-shadow:var(--shadow)}
-    .site-title{font-weight:800;font-size:1.05rem}
-    .searchbar{flex:1;display:flex;align-items:center;background:var(--white);border-radius:10px;padding:8px 12px;border:1px solid rgba(16,24,40,0.06)}
-    .searchbar input{flex:1;border:none;outline:none;padding:10px;font-size:0.95rem}
-    .icon-btn{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:transparent;border:1px solid rgba(16,24,40,0.04);cursor:pointer;color:var(--muted);font-weight:700}
-    .top-links{display:flex;gap:8px;align-items:center}
+    .topbar{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:14px;padding:0 18px}
+    .logo{display:flex; align-items:center; gap:12px}
+    .logo-badge{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:20px;box-shadow:var(--shadow)}
+    .site-title{font-weight:800}
+    .top-actions{margin-left:auto;display:flex;gap:10px;align-items:center}
 
-    nav.categories{max-width:var(--maxw);margin:12px auto;padding:0 18px;display:flex;gap:12px;overflow:auto}
-    nav.categories button{white-space:nowrap;padding:8px 12px;border-radius:999px;border:1px solid rgba(16,24,40,0.04);background:transparent;color:var(--muted);cursor:pointer}
-    nav.categories button.active{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;border:none;box-shadow:0 8px 20px rgba(107,70,193,0.08)}
+    .nav-buttons{max-width:var(--maxw);margin:12px auto;padding:0 18px;display:flex;gap:12px;flex-wrap:wrap}
+    .nav-btn{padding:8px 12px;border-radius:999px;border:1px solid rgba(16,24,40,0.04);background:transparent;color:var(--muted);cursor:pointer;font-weight:700}
+    .nav-btn.active{background:linear-gradient(90deg,var(--accent-1),var(--accent-3));color:white;border:none;box-shadow:0 10px 30px rgba(124,58,237,0.12)}
 
     main{max-width:var(--maxw);margin:18px auto;padding:0 18px 60px}
 
-/* ---------- PAGES & PANELS ---------- */
+/* ---------- WELCOME ---------- */
     .hero{
-      display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:center;background:var(--panel);padding:26px;border-radius:16px;border:1px solid rgba(16,24,40,0.03);box-shadow:var(--shadow)
+      display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:center;background:linear-gradient(180deg,#fff,#fff6ff);padding:28px;border-radius:16px;border:1px solid rgba(16,24,40,0.03);box-shadow:var(--shadow)
     }
-    .hero h1{margin:0;font-size:1.6rem}
+    .hero h1{margin:0;font-size:1.8rem}
     .hero p{margin:8px 0;color:var(--muted)}
+    .cta{background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:white;padding:12px 16px;border-radius:12px;border:none;cursor:pointer;font-weight:800;box-shadow:0 10px 30px rgba(124,58,237,0.12)}
+    .secondary-cta{background:linear-gradient(90deg,var(--accent-3),var(--accent-4));color:#07211a;padding:10px 14px;border-radius:12px;border:none;cursor:pointer;font-weight:700}
 
-    .cards-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px}
+    .hero-features{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}
+    .feature{background:white;padding:10px;border-radius:10px;border:1px solid rgba(16,24,40,0.04);font-weight:700;color:var(--muted)}
 
-/* ---------- CATALOG / SIDEBAR ---------- */
-    .catalog-wrap{display:grid;grid-template-columns:280px 1fr;gap:20px;margin-top:18px}
-    .sidebar{background:var(--white);padding:14px;border-radius:12px;border:1px solid rgba(16,24,40,0.04);box-shadow:0 6px 18px rgba(16,24,40,0.03)}
-    .filter-group{margin-bottom:12px}
-    .filter-group h4{margin:0 0 8px;font-size:0.95rem}
-    .range{display:flex;gap:8px;align-items:center}
-    .range input[type=range]{width:100%}
-    .toggle{display:flex;gap:8px;align-items:center}
-    .apply-row{display:flex;gap:8px;justify-content:flex-end;margin-top:8px}
+/* ---------- CATEGORIES ---------- */
+    .categories-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-top:18px}
+    .category-tile{background:linear-gradient(180deg,white,#fff8ff);padding:16px;border-radius:14px;border:1px solid rgba(16,24,40,0.03);display:flex;flex-direction:column;align-items:flex-start;gap:12px;cursor:pointer;transition:transform .12s}
+    .category-tile:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(12,20,40,0.06)}
+    .cat-image{width:100%;height:110px;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--accent-1),var(--accent-3));color:white;font-weight:800}
+    .cat-title{font-weight:900;font-size:1rem}
+    .cat-sub{color:var(--muted);font-size:0.9rem}
 
-    .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--card-gap)}
+/* ---------- PRODUCT LIST (category page) ---------- */
+    .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-top:18px}
+    .product-card{background:white;border-radius:12px;border:1px solid rgba(16,24,40,0.04);overflow:hidden;display:flex;flex-direction:column;min-height:310px;box-shadow:0 10px 30px rgba(12,20,40,0.05);transition:transform .12s}
+    .product-card:hover{transform:translateY(-8px)}
+    .product-media{height:170px;background:#f8f7ff;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .product-media img{width:100%;height:100%;object-fit:cover;display:block}
+    .product-body{padding:12px;flex:1;display:flex;flex-direction:column}
+    .product-name{font-weight:800;margin:0 0 8px}
+    .product-price{font-weight:900;color:var(--accent-1);font-size:1.05rem}
+    .product-meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1px solid rgba(16,24,40,0.03)}
+    .view-btn{padding:8px 10px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent-1),var(--accent-3));color:white;cursor:pointer;font-weight:800}
 
-/* ---------- PRODUCT CARD ---------- */
-    .product{
-      background:var(--white);border-radius:12px;border:1px solid rgba(16,24,40,0.04);overflow:hidden;display:flex;flex-direction:column;min-height:320px;box-shadow:0 6px 16px rgba(15,23,42,0.03);
-      transition:transform .15s, box-shadow .15s;
-    }
-    .product:hover{transform:translateY(-6px);box-shadow:0 20px 40px rgba(15,23,42,0.08)}
-    .product .info{padding:12px}
-    .product .name{font-weight:800;margin:0 0 6px;font-size:0.98rem;color:var(--text)}
-    .product .price-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-    .product .price{font-weight:900;color:var(--accent);font-size:1rem}
-    .product .budget{background:linear-gradient(90deg,var(--accent-2),var(--accent));color:white;padding:6px 8px;border-radius:999px;font-weight:700;font-size:0.78rem}
-    .product .imgwrap{flex:1;background:linear-gradient(180deg, rgba(107,70,193,0.02), rgba(107,70,193,0.00));display:flex;align-items:center;justify-content:center;height:180px;overflow:hidden}
-    .product .imgwrap img{width:100%;height:100%;object-fit:cover;display:block}
-    .product .meta{padding:10px;border-top:1px solid rgba(16,24,40,0.03);display:flex;align-items:center;justify-content:space-between;font-size:0.9rem;color:var(--muted)}
-    .small-btn{padding:8px 10px;border-radius:8px;border:1px solid rgba(16,24,40,0.04);background:transparent;cursor:pointer}
+/* ---------- PRODUCT DETAIL (shop details) ---------- */
+    .detail-wrap{display:grid;grid-template-columns:420px 1fr;gap:18px;margin-top:18px}
+    .detail-media{background:white;border-radius:12px;border:1px solid rgba(16,24,40,0.04);overflow:hidden;display:flex;align-items:center;justify-content:center;height:460px}
+    .detail-media img{max-width:100%;max-height:100%;object-fit:contain}
+    .detail-card{background:white;border-radius:12px;padding:16px;border:1px solid rgba(16,24,40,0.04);box-shadow:0 12px 30px rgba(12,20,40,0.05)}
+    .seller-row{display:flex;gap:12px;align-items:center;margin-top:12px}
+    .seller-avatar{width:56px;height:56px;border-radius:12px;background:linear-gradient(90deg,var(--accent-3),var(--accent-4));display:flex;align-items:center;justify-content:center;color:#07211a;font-weight:800}
 
-/* ---------- MODAL ---------- */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:flex;align-items:center;justify-content:center;z-index:1400}
-    .modal{width:min(920px,96%);background:var(--white);border-radius:12px;padding:18px;display:grid;grid-template-columns:420px 1fr;gap:16px;border:1px solid rgba(16,24,40,0.06)}
-    .modal .m-image{height:420px;background:#f3f4f6;border-radius:10px;overflow:hidden}
-    .modal .m-image img{width:100%;height:100%;object-fit:cover}
-    .modal .m-body h3{margin:0 0 8px}
-    .modal .m-body .price{font-weight:900;color:var(--accent);font-size:1.2rem;margin:6px 0}
-    .modal .m-actions{display:flex;gap:10px;margin-top:12px}
+/* ---------- CONTACT / SOCIAL ---------- */
+    .contact-card{background:white;border-radius:12px;padding:16px;border:1px solid rgba(16,24,40,0.04);margin-top:18px}
+    .socials{display:flex;gap:10px;margin-top:10px}
+    .social{padding:8px 10px;border-radius:8px;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:white;font-weight:800;cursor:pointer}
 
-/* ---------- FOOTER ---------- */
-    footer{max-width:var(--maxw);margin:28px auto;padding:18px;border-radius:10px;background:var(--white);border:1px solid rgba(16,24,40,0.04);display:flex;justify-content:space-between;gap:12px;color:var(--muted)}
-
-/* ---------- RESPONSIVE ---------- */
+    /* small screens */
     @media (max-width:980px){
       .hero{grid-template-columns:1fr}
-      .catalog-wrap{grid-template-columns:1fr}
-      .modal{grid-template-columns:1fr}
+      .detail-wrap{grid-template-columns:1fr}
+      .topbar{padding:0 10px}
     }
     @media (max-width:520px){
-      .topbar{padding:10px}
-      .logo-badge{width:44px;height:44px}
-      .product .imgwrap{height:140px}
+      .product-card{min-height:240px}
+      .product-media{height:140px}
     }
   </style>
 </head>
@@ -121,552 +109,441 @@
         <div class="logo-badge">IS</div>
         <div>
           <div class="site-title">Item Swap Marketplace</div>
-          <div style="font-size:0.8rem;color:var(--muted)">Swap • Save • Smile</div>
+          <div style="font-size:0.85rem;color:var(--muted)">Shop • Swap • Smile</div>
         </div>
       </div>
 
-      <div class="searchbar" role="search" aria-label="Search products">
-        <input id="search" placeholder="Search items, brands, categories..." aria-label="Search">
-        <button id="searchBtn" class="icon-btn" title="Search">Search</button>
-      </div>
-
-      <div class="top-links">
-        <button id="viewCart" class="icon-btn" title="Cart">Cart (0)</button>
-        <button id="viewAccount" class="icon-btn" title="Account">Account</button>
+      <div class="top-actions">
+        <button id="homeBtn" class="nav-btn">Home</button>
+        <button id="catalogBtn" class="nav-btn">Categories</button>
+        <button id="contactBtn" class="nav-btn">Shop Details</button>
       </div>
     </div>
 
-    <nav class="categories" id="categoryNav" aria-label="Top categories">
-      <!-- categories buttons injected by JS -->
-    </nav>
+    <!-- categories nav (small) -->
+    <div class="nav-buttons" id="topCategories" aria-hidden="false"></div>
   </header>
 
   <main>
-    <!-- HOME / HERO -->
-    <section class="hero" id="homePage">
-      <div>
-        <h1>Find great items to swap, sell or buy — discover budget-friendly deals</h1>
-        <p>Organized categories, filters, and product pages make exploring easy. Click a category to start browsing or search for a product.</p>
+    <!-- WELCOME PAGE -->
+    <section id="page-welcome" style="padding:4px">
+      <div class="hero">
+        <div>
+          <h1>Welcome to Item Swap Marketplace</h1>
+          <p>Discover curated items from Toys, Books, Dress, Electronics and more. Attractive images and clear pricing to help items sell & swap faster.</p>
+          <div style="margin-top:16px;display:flex;gap:12px">
+            <button id="goToCategories" class="cta">Browse Categories</button>
+            <button id="goContact" class="secondary-cta">Contact / Shop Details</button>
+          </div>
 
-        <div style="margin-top:16px;display:flex;gap:10px">
-          <button id="ctaBrowse" class="icon-btn" style="background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;border:none">Browse Catalog</button>
-          <button id="ctaSell" class="icon-btn">List an item</button>
+          <div class="hero-features">
+            <div class="feature">Organized categories</div>
+            <div class="feature">Budget-friendly highlights</div>
+            <div class="feature">Beautiful product images</div>
+            <div class="feature">Easy contact + social links</div>
+          </div>
         </div>
 
-        <div style="margin-top:18px" id="featuredRow"></div>
-      </div>
-
-      <aside>
-        <div style="background:linear-gradient(90deg,var(--accent-2),var(--accent));padding:14px;border-radius:12px;color:white">
-          <h3 style="margin:0 0 6px">Why choose us?</h3>
-          <ul style="margin:0;padding-left:18px;color:rgba(255,255,255,0.95)">
-            <li>Safe peer-to-peer swaps</li>
-            <li>Budget-friendly highlighted items</li>
-            <li>Organized categories & filters</li>
-          </ul>
-        </div>
-
-        <div style="height:12px"></div>
-
-        <div style="background:var(--white);padding:12px;border-radius:12px;border:1px solid rgba(16,24,40,0.04)">
-          <h4 style="margin:0 0 6px">Get support</h4>
-          <div style="color:var(--muted)">Email us at <strong style="color:var(--accent)">info@itemswap.example</strong></div>
-        </div>
-      </aside>
-    </section>
-
-    <!-- CATALOG -->
-    <section id="catalogPage" style="display:none">
-      <div class="catalog-wrap">
-        <!-- SIDEBAR -->
-        <aside class="sidebar" aria-label="Filters">
-          <div class="filter-group">
-            <h4>Category</h4>
-            <div id="filterCategories"></div>
-          </div>
-
-          <div class="filter-group">
-            <h4>Max price: <span id="priceLabel">₹5000</span></h4>
-            <div class="range">
-              <input id="priceRange" type="range" min="0" max="5000" value="5000">
-            </div>
-          </div>
-
-          <div class="filter-group">
-            <h4>Show only</h4>
-            <div class="toggle">
-              <label style="display:flex;gap:8px;align-items:center">
-                <input id="budgetOnly" type="checkbox"> <span>Budget-friendly (≤ ₹<span id="budgetVal">100</span>)</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="apply-row">
-            <button id="resetFilters" class="small-btn">Reset</button>
-          </div>
-        </aside>
-
-        <!-- PRODUCTS -->
-        <section style="min-height:420px">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
-            <h2 style="margin:0">Products</h2>
-            <div style="color:var(--muted)"><span id="resultsCount">0</span> results</div>
+        <aside>
+          <div style="background:linear-gradient(90deg,var(--accent-2),var(--accent-1));padding:16px;border-radius:12px;color:white">
+            <h3 style="margin:0 0 6px">Why shop here?</h3>
+            <p style="margin:0">Curated & attractive listings, clear prices, and friendly sellers — a marketplace built for trust & style.</p>
           </div>
 
           <div style="height:12px"></div>
 
-          <div class="product-grid" id="productGrid"></div>
-
-          <div style="height:18px"></div>
-          <div style="display:flex;align-items:center;justify-content:center;gap:8px">
-            <button id="prevPage" class="small-btn">Prev</button>
-            <div id="pageInfo" style="color:var(--muted)"></div>
-            <button id="nextPage" class="small-btn">Next</button>
+          <div style="background:white;padding:12px;border-radius:12px;border:1px solid rgba(16,24,40,0.04)">
+            <h4 style="margin:0">Hot deals</h4>
+            <div style="color:var(--muted);margin-top:8px">Check categories for budget-friendly items (≤ ₹100) highlighted on each product card.</div>
           </div>
-        </section>
+        </aside>
+      </div>
+
+      <!-- categories preview -->
+      <div style="margin-top:18px">
+        <h3 style="margin:0 0 8px">Browse Categories</h3>
+        <div class="categories-grid" id="categoriesPreview"></div>
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contactPage" style="display:none;margin-top:18px">
-      <div style="display:grid;grid-template-columns:1fr 360px;gap:18px">
-        <div style="background:var(--white);padding:18px;border-radius:12px;border:1px solid rgba(16,24,40,0.04)">
-          <h2>Contact us</h2>
-          <p style="color:var(--muted)">Use the form to send questions or report issues. It opens your email client.</p>
-          <form id="contactForm">
-            <input id="cName" required placeholder="Your name" style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px;border:1px solid rgba(16,24,40,0.04)">
-            <input id="cEmail" required placeholder="Your email" style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px;border:1px solid rgba(16,24,40,0.04)">
-            <input id="cSubj" placeholder="Subject" style="width:100%;padding:10px;margin-bottom:8px;border-radius:8px;border:1px solid rgba(16,24,40,0.04)">
-            <textarea id="cMsg" rows="6" placeholder="Message" style="width:100%;padding:10px;border-radius:8px;border:1px solid rgba(16,24,40,0.04)"></textarea>
-            <div style="margin-top:8px;display:flex;gap:8px">
-              <button class="icon-btn" type="submit" style="background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;border:none">Send</button>
-              <button type="button" id="clearContact" class="small-btn">Reset</button>
-            </div>
-          </form>
+    <!-- CATEGORIES / CATALOG PAGE -->
+    <section id="page-catalog" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div>
+          <h2 style="margin:0">Categories</h2>
+          <div style="color:var(--muted)">Select a category to view items</div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px" id="categoryContent">
+        <!-- category list OR product grid inserted by JS -->
+      </div>
+    </section>
+
+    <!-- SHOP DETAILS / PRODUCT PAGE -->
+    <section id="page-detail" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+        <div>
+          <h2 id="detailTitle" style="margin:0">Product / Shop Details</h2>
+          <div id="detailSub" style="color:var(--muted)"></div>
+        </div>
+        <div>
+          <button id="backToCatalog" class="nav-btn">Back to Catalog</button>
+        </div>
+      </div>
+
+      <div class="detail-wrap" id="detailWrap">
+        <!-- left: image; right: details injected by JS -->
+      </div>
+
+      <div class="contact-card">
+        <h3>Seller Contact & Address</h3>
+        <div id="sellerInfo" style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+          <!-- injected -->
         </div>
 
-        <aside style="background:var(--white);padding:18px;border-radius:12px;border:1px solid rgba(16,24,40,0.04);color:var(--muted)">
-          <h3 style="margin-top:0">Visit us</h3>
-          <p>Item Swap Marketplace — Erode, Tamil Nadu, India</p>
-          <p>Email: <a href="mailto:info@itemswap.example" style="color:var(--accent)">info@itemswap.example</a></p>
-          <p>Phone: +91 93422 98598</p>
-          <div style="height:12px"></div>
-          <h4 style="margin:0 0 6px">Operating hours</h4>
-          <p style="margin:0;color:var(--muted)">Mon — Fri: 9:00 AM — 6:00 PM</p>
-        </aside>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:12px">
+          <div style="color:var(--muted)">Reach out via email or phone — or follow on social media</div>
+          <div class="socials" id="socialLinks">
+            <!-- social buttons -->
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div>© <strong>Item Swap Marketplace</strong> — Built with ♥</div>
-    <div style="color:var(--muted)">Terms • Privacy • Contact</div>
+  <footer style="max-width:var(--maxw);margin:28px auto;padding:14px 18px;border-radius:12px;background:linear-gradient(180deg,#fff,#fff8ff);border:1px solid rgba(16,24,40,0.03);display:flex;justify-content:space-between">
+    <div>© <strong>Item Swap Marketplace</strong></div>
+    <div style="color:var(--muted)">Address: Erode, Tamil Nadu • Email: info@itemswap.example • Phone: +91 93422 98598</div>
   </footer>
 
-  <!-- PRODUCT MODAL (hidden) -->
-  <div id="modalRoot" style="display:none"></div>
-
   <script>
-    /**********************
-     * Configuration
-     **********************/
-    const CATEGORIES = ['Toys','Books','Dress','Things','Electronics','Home','Beauty','Sports','Kids','Accessories'];
-    const ITEMS_PER_CATEGORY = 30; // 30 per category for responsiveness (change to 50/100 if you want)
-    const STORAGE_KEY = 'proMarketplace.catalog.v1.whitepurple';
-    const PAGE_SIZE = 20;
-    const BUDGET_THRESHOLD = Number(getComputedStyle(document.documentElement).getPropertyValue('--budget-threshold')) || 100;
+    /********************
+     * Data (items for categories)
+     * Replace placeholder images with your own image URLs if you want.
+     ********************/
+    const CATEGORIES = [
+      { key:'Toys', label:'Toys', imageBg: 'Toy+Collection' },
+      { key:'Books', label:'Books', imageBg: 'Book+Collection' },
+      { key:'Dress', label:'Dress', imageBg: 'Dress+Collection' },
+      { key:'Electronics', label:'Electronics', imageBg: 'Electronics' },
+      { key:'Home', label:'Home', imageBg: 'Home+Essentials' },
+      { key:'Beauty', label:'Beauty', imageBg: 'Beauty+Care' },
+      { key:'Sports', label:'Sports', imageBg: 'Sports' },
+      { key:'Accessories', label:'Accessories', imageBg: 'Accessories' }
+    ];
 
-    /**********************
-     * Utilities
-     **********************/
-    const $ = sel => document.querySelector(sel);
-    const $$ = sel => Array.from(document.querySelectorAll(sel));
-    function idGen(){ return 'p_' + Math.random().toString(36).slice(2,9); }
-    function randInt(min,max){ return Math.floor(Math.random()*(max-min+1)) + min; }
+    // small helper to create placeholder image URL with colored background and text
+    // You can replace the URL with real images later.
+    function placeholder(text, w=800, h=520, bg='efe8ff', fg='6b46c1'){
+      return `https://via.placeholder.com/${w}x${h}/${bg}/${fg}?text=${encodeURIComponent(text)}`;
+    }
 
-    /**********************
-     * Catalog: load or generate
-     **********************/
-    function buildSampleCatalog(){
-      const all = [];
-      CATEGORIES.forEach(cat => {
-        for(let i=1;i<=ITEMS_PER_CATEGORY;i++){
-          let name, imgText, price;
-          switch(cat){
-            case 'Toys':
-              name = `Toy ${i} — Play Set`;
-              price = randInt(30,700);
-              imgText = `Toy+${i}`;
-              break;
-            case 'Books':
-              const bt = ['Story','Math','Science','Programming','Novel','Poetry']; name = `${bt[i%bt.length]} Book ${i}`; price = randInt(20,420); imgText = `Book+${i}`; break;
-            case 'Dress':
-              name = `Dress ${i} — Stylish`; price = randInt(80,1400); imgText = `Dress+${i}`; break;
-            case 'Things':
-              name = `Item ${i} — Home Gear`; price = randInt(50,2500); imgText = `Thing+${i}`; break;
-            case 'Electronics':
-              const et = ['Earbuds','Camera','Speaker','Powerbank']; name = `${et[i%et.length]} ${i}`; price = randInt(300,8000); imgText = `Electronics+${i}`; break;
-            case 'Home':
-              const ht = ['Lamp','Chair','Vase','Rug']; name = `${ht[i%ht.length]} ${i}`; price = randInt(120,6000); imgText = `Home+${i}`; break;
-            case 'Beauty':
-              name = `Beauty Kit ${i}`; price = randInt(50,1500); imgText = `Beauty+${i}`; break;
-            case 'Sports':
-              name = `Sport Item ${i}`; price = randInt(80,3500); imgText = `Sport+${i}`; break;
-            case 'Kids':
-              name = `Kids Toy ${i}`; price = randInt(20,900); imgText = `Kids+${i}`; break;
-            case 'Accessories':
-              name = `Accessory ${i}`; price = randInt(30,2500); imgText = `Acc+${i}`; break;
-            default:
-              name = `Product ${i}`; price = randInt(20,1000); imgText = `Prod+${i}`;
+    // We'll define 8 items per category (you can increase later)
+    const ITEMS = {};
+    CATEGORIES.forEach(cat => {
+      const arr = [];
+      for(let i=1;i<=8;i++){
+        const name = `${cat.label} Item ${i}`;
+        // generate price varied by category for realism
+        let price = 0;
+        switch(cat.key){
+          case 'Toys': price = [45,80,120,250,350,60,99,180][i%8]; break;
+          case 'Books': price = [30,75,150,220,55,40,99,120][i%8]; break;
+          case 'Dress': price = [199,499,799,1200,999,299,349,159][i%8]; break;
+          case 'Electronics': price = [2499,999,1599,2999,499,1299,799,3499][i%8]; break;
+          case 'Home': price = [1200,450,299,850,600,80,199,1499][i%8]; break;
+          case 'Beauty': price = [250,150,75,499,149,89,119,199][i%8]; break;
+          case 'Sports': price = [399,999,299,799,1599,120,499,249][i%8]; break;
+          case 'Accessories': price = [99,250,499,129,349,79,59,420][i%8]; break;
+          default: price = 199;
+        }
+        const img = placeholder(`${cat.label}+${i}`, 900, 600);
+        arr.push({
+          id: `${cat.key}_${i}`,
+          name,
+          price,
+          image: img,
+          category: cat.key,
+          description: `This is a high-quality ${name}. Perfect condition and attractive price. Great for swapping or buying.`,
+          seller: {
+            name: 'Safalya Store',
+            phone: '+91 93422 98598',
+            email: 'safalya.store@example.com',
+            address: '181/B, No:2 1st Floor, Manala Medu Street, Erode - 630008, Tamil Nadu, India',
+            social: {
+              instagram:'https://instagram.com/',
+              facebook:'https://facebook.com/',
+              whatsapp: 'https://wa.me/919342298598'
+            }
           }
-          const image = `https://via.placeholder.com/600x400/efe8ff/6b46c1?text=${encodeURIComponent(imgText)}`;
-          all.push({ id:idGen(), name, category:cat, price, image, desc: `High quality ${name}. Good condition.`, budget: price <= BUDGET_THRESHOLD });
-        }
-      });
-      return all;
-    }
-
-    function loadCatalog(){
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if(raw) return JSON.parse(raw);
-      } catch(e){ console.warn('catalog load error', e); }
-      const sample = buildSampleCatalog();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(sample));
-      return sample;
-    }
-
-    function saveCatalog(data){
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e){ console.warn('save error', e); }
-    }
-
-    /**********************
-     * State
-     **********************/
-    let catalog = loadCatalog();
-    let filtered = catalog.slice();
-    let activeCategory = null; // null -> all
-    let searchQuery = '';
-    let page = 1;
-    let pageSize = PAGE_SIZE;
-    let maxPrice = 5000;
-    let budgetOnly = false;
-
-    /**********************
-     * DOM refs
-     **********************/
-    const categoryNav = document.getElementById('categoryNav');
-    const catalogPage = document.getElementById('catalogPage');
-    const homePage = document.getElementById('homePage');
-    const contactPage = document.getElementById('contactPage');
-    const productGrid = document.getElementById('productGrid');
-    const resultsCount = document.getElementById('resultsCount');
-    const pageInfo = document.getElementById('pageInfo');
-    const prevBtn = document.getElementById('prevPage');
-    const nextBtn = document.getElementById('nextPage');
-    const priceRange = document.getElementById('priceRange');
-    const priceLabel = document.getElementById('priceLabel');
-    const budgetOnlyBox = document.getElementById('budgetOnly');
-    const filterCategories = document.getElementById('filterCategories');
-    const searchInput = document.getElementById('search');
-
-    /**********************
-     * Navigation
-     **********************/
-    function showPage(name){
-      homePage.style.display = name === 'home' ? '' : 'none';
-      catalogPage.style.display = name === 'catalog' ? '' : 'none';
-      contactPage.style.display = name === 'contact' ? '' : 'none';
-      // update active nav
-      $$('#categoryNav button').forEach(btn => btn.classList.remove('active'));
-      $$('#nav-welcome, #nav-catalog, #nav-contact').forEach(b => b.classList.remove('active'));
-      // highlight top header nav if needed
-    }
-
-    document.getElementById('ctaBrowse').addEventListener('click', ()=> { renderCatalogUI(); showPage('catalog'); });
-    document.getElementById('ctaSell').addEventListener('click', ()=> alert('Listing flow is not implemented in the demo.'));
-
-    // top nav buttons
-    $('#searchBtn').addEventListener('click', ()=> { searchQuery = searchInput.value.trim(); applyFilters(); showPage('catalog'); });
-    searchInput.addEventListener('keydown', (e)=> { if(e.key === 'Enter'){ searchQuery = searchInput.value.trim(); applyFilters(); showPage('catalog'); }});
-    $('#viewCart').addEventListener('click', ()=> alert('Cart demo — not implemented.'));
-
-    // header nav (Welcome / Catalog / Contact)
-    document.getElementById('nav-welcome').addEventListener('click', ()=> { showPage('home'); });
-    document.getElementById('nav-catalog').addEventListener('click', ()=> { renderCatalogUI(); showPage('catalog'); });
-    document.getElementById('nav-contact').addEventListener('click', ()=> { showPage('contact'); });
-
-    /**********************
-     * Render top categories (header)
-     **********************/
-    function renderTopCategories(){
-      categoryNav.innerHTML = '';
-      const allBtn = document.createElement('button'); allBtn.textContent = 'All'; allBtn.className='active';
-      allBtn.addEventListener('click', ()=> { activeCategory = null; applyFilters(); });
-      categoryNav.appendChild(allBtn);
-      CATEGORIES.forEach(cat => {
-        const btn = document.createElement('button'); btn.textContent = cat;
-        btn.addEventListener('click', ()=> { activeCategory = cat; applyFilters(); });
-        categoryNav.appendChild(btn);
-      });
-    }
-
-    /**********************
-     * Sidebar categories (filters)
-     **********************/
-    function renderFilterCategories(){
-      filterCategories.innerHTML = '';
-      const allCheckbox = document.createElement('label');
-      allCheckbox.innerHTML = `<input type="checkbox" checked data-cat="__all"> All`;
-      allCheckbox.style.display='block';
-      filterCategories.appendChild(allCheckbox);
-
-      CATEGORIES.forEach(cat => {
-        const label = document.createElement('label');
-        label.style.display='block';
-        label.style.marginTop='6px';
-        label.innerHTML = `<input type="checkbox" data-cat="${cat}" checked> ${cat}`;
-        filterCategories.appendChild(label);
-      });
-    }
-
-    /**********************
-     * Filter & search logic
-     **********************/
-    function applyFilters(){
-      // gather selected categories from sidebar
-      const checkboxes = Array.from(filterCategories.querySelectorAll('input[type=checkbox]')).filter(ch => ch.checked);
-      const selectedCats = checkboxes.map(ch => ch.dataset.cat).filter(x => x && x !== '__all');
-      // if __all is checked or none selected => all
-      let catFilter = null;
-      if(selectedCats.length>0 && !checkboxes.some(ch => ch.dataset.cat==='__all' && ch.checked)) catFilter = selectedCats;
-
-      // compute filtered list
-      filtered = catalog.filter(p => {
-        if(catFilter && !catFilter.includes(p.category)) return false;
-        if(activeCategory && p.category !== activeCategory) return false;
-        if(budgetOnly && !p.budget) return false;
-        if(p.price > maxPrice) return false;
-        if(searchQuery){
-          const q = searchQuery.toLowerCase();
-          if(!p.name.toLowerCase().includes(q) && !p.category.toLowerCase().includes(q) && !(p.desc && p.desc.toLowerCase().includes(q))) return false;
-        }
-        return true;
-      });
-
-      page = 1;
-      renderProducts();
-    }
-
-    /**********************
-     * Pagination & render products
-     **********************/
-    function renderProducts(){
-      productGrid.innerHTML = '';
-      const total = filtered.length;
-      resultsCount.textContent = total;
-
-      const totalPages = Math.max(1, Math.ceil(total / pageSize));
-      if(page > totalPages) page = totalPages;
-      const start = (page-1)*pageSize;
-      const end = start + pageSize;
-
-      const pageItems = filtered.slice(start,end);
-      pageItems.forEach(p => productGrid.appendChild(productCard(p)));
-
-      pageInfo.textContent = `Page ${page} of ${totalPages}`;
-      prevBtn.disabled = page <= 1;
-      nextBtn.disabled = page >= totalPages;
-    }
-
-    prevBtn.addEventListener('click', ()=> { if(page>1){ page--; renderProducts(); window.scrollTo({top:200, behavior:'smooth'}); }});
-    nextBtn.addEventListener('click', ()=> { const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize)); if(page<totalPages){ page++; renderProducts(); window.scrollTo({top:200, behavior:'smooth'}); }});
-
-    /**********************
-     * Product card DOM
-     **********************/
-    function productCard(p){
-      const el = document.createElement('article'); el.className='product';
-      const imgWrap = document.createElement('div'); imgWrap.className='imgwrap';
-      const img = document.createElement('img'); img.src = p.image; img.alt = p.name; img.loading='lazy';
-      imgWrap.appendChild(img);
-
-      const info = document.createElement('div'); info.className='info';
-      const name = document.createElement('h3'); name.className='name'; name.textContent = p.name;
-      const priceRow = document.createElement('div'); priceRow.className='price-row';
-      const price = document.createElement('div'); price.className='price'; price.textContent = '₹' + Number(p.price).toFixed(2);
-      priceRow.appendChild(price);
-      if(p.budget){ const bud = document.createElement('div'); bud.className='budget'; bud.textContent='Budget-friendly'; priceRow.appendChild(bud); }
-
-      const meta = document.createElement('div'); meta.className='meta';
-      const cat = document.createElement('div'); cat.textContent = p.category;
-      const btn = document.createElement('button'); btn.className='small-btn'; btn.textContent='View';
-      btn.addEventListener('click', ()=> openModal(p));
-      meta.appendChild(cat); meta.appendChild(btn);
-
-      info.appendChild(name); info.appendChild(priceRow);
-      el.appendChild(imgWrap); el.appendChild(info); el.appendChild(meta);
-      return el;
-    }
-
-    /**********************
-     * Product Modal
-     **********************/
-    function openModal(item){
-      const modalRoot = document.getElementById('modalRoot');
-      modalRoot.innerHTML = '';
-      modalRoot.style.display = 'block';
-
-      const bk = document.createElement('div'); bk.className='modal-backdrop';
-      bk.addEventListener('click', (e)=> { if(e.target === bk){ closeModal(); }});
-
-      const modal = document.createElement('div'); modal.className='modal';
-      const mimage = document.createElement('div'); mimage.className='m-image';
-      const mimg = document.createElement('img'); mimg.src = item.image; mimg.alt = item.name; mimage.appendChild(mimg);
-
-      const mbody = document.createElement('div'); mbody.className='m-body';
-      const title = document.createElement('h3'); title.textContent = item.name;
-      const price = document.createElement('div'); price.className='price'; price.textContent = '₹' + Number(item.price).toFixed(2);
-      const desc = document.createElement('p'); desc.textContent = item.desc || 'No description provided.';
-      const cat = document.createElement('div'); cat.style.color='var(--muted)'; cat.style.marginTop='6px'; cat.textContent = 'Category: ' + item.category;
-      const actions = document.createElement('div'); actions.className='m-actions';
-      const swapBtn = document.createElement('button'); swapBtn.className='icon-btn'; swapBtn.style.background='linear-gradient(90deg,var(--accent),var(--accent-2))'; swapBtn.style.color='white'; swapBtn.textContent='Request Swap';
-      swapBtn.addEventListener('click', ()=> { alert('Swap request demo: contact seller via email.'); });
-      const contactBtn = document.createElement('button'); contactBtn.className='icon-btn'; contactBtn.textContent='Contact Seller';
-      contactBtn.addEventListener('click', ()=> { window.location.href = `mailto:info@itemswap.example?subject=${encodeURIComponent('Interested in '+item.name)}&body=${encodeURIComponent('Hi, I am interested in '+item.name)}`; });
-
-      const closeBtn = document.createElement('button'); closeBtn.className='small-btn'; closeBtn.textContent='Close';
-      closeBtn.addEventListener('click', closeModal);
-
-      actions.appendChild(swapBtn); actions.appendChild(contactBtn); actions.appendChild(closeBtn);
-      mbody.appendChild(title); mbody.appendChild(price); mbody.appendChild(desc); mbody.appendChild(cat); mbody.appendChild(actions);
-
-      modal.appendChild(mimage); modal.appendChild(mbody);
-      bk.appendChild(modal);
-      modalRoot.appendChild(bk);
-    }
-
-    function closeModal(){
-      const modalRoot = document.getElementById('modalRoot');
-      modalRoot.style.display = 'none';
-      modalRoot.innerHTML = '';
-    }
-
-    /**********************
-     * Render Catalog UI (prepare filters & initial render)
-     **********************/
-    function renderCatalogUI(){
-      // header categories active styling
-      $$('#categoryNav button').forEach(b => b.classList.remove('active'));
-      // render sidebar category checkboxes
-      renderFilterCategories();
-      // initial filter settings
-      priceRange.max = 5000; priceRange.value = 5000; priceLabel.textContent = '₹' + priceRange.value;
-      budgetOnly = false; budgetOnlyBox.checked = false;
-      // show all
-      activeCategory = null; searchQuery = ''; page = 1;
-      applyFilters();
-      showPage('catalog');
-    }
-
-    /**********************
-     * Render top featured & initial load
-     **********************/
-    function renderFeatured(){
-      const featured = catalog.slice(0,4);
-      const row = document.getElementById('featuredRow');
-      row.innerHTML = '';
-      featured.forEach(p => {
-        const el = document.createElement('div'); el.style.display='inline-block'; el.style.marginRight='10px';
-        el.innerHTML = `<div style="background:${'linear-gradient(180deg, #fff, #fbf8ff)'};padding:10px;border-radius:10px;border:1px solid rgba(16,24,40,0.04);min-width:180px">
-          <div style="font-weight:800">${p.name}</div>
-          <div style="color:var(--muted)">${p.category} • ₹${p.price}</div>
-        </div>`;
-        row.appendChild(el);
-      });
-    }
-
-    /**********************
-     * Sidebar & control events
-     **********************/
-    priceRange.addEventListener('input', ()=> { maxPrice = Number(priceRange.value); priceLabel.textContent='₹' + maxPrice; applyFilters(); });
-    budgetOnlyBox.addEventListener('change', ()=> { budgetOnly = budgetOnlyBox.checked; applyFilters(); });
-    $('#resetFilters').addEventListener('click', ()=> { renderFilterCategories(); priceRange.value = 5000; maxPrice = 5000; budgetOnlyBox.checked=false; budgetOnly=false; searchInput.value=''; searchQuery=''; applyFilters(); });
-
-    // filter categories change handling
-    function renderFilterCategories(){
-      const el = document.getElementById('filterCategories');
-      el.innerHTML = '';
-      // all checkbox
-      const allLabel = document.createElement('label'); allLabel.style.display='block'; allLabel.style.marginBottom='6px';
-      allLabel.innerHTML = `<input type="checkbox" data-cat="__all" checked style="margin-right:8px"> All`;
-      el.appendChild(allLabel);
-      CATEGORIES.forEach(cat => {
-        const lab = document.createElement('label'); lab.style.display='block'; lab.style.marginBottom='6px';
-        lab.innerHTML = `<input type="checkbox" data-cat="${cat}" checked style="margin-right:8px"> ${cat}`;
-        el.appendChild(lab);
-      });
-      // implement UI: clicking checkboxes triggers apply
-      el.querySelectorAll('input[type=checkbox]').forEach(cb => cb.addEventListener('change', ()=> applyFilters()));
-    }
-
-    /**********************
-     * initial bootsrap render
-     **********************/
-    renderTopCategories();
-    renderFeatured();
-    renderFilterCategories();
-    applyFilters(); // initial render uses filters to fill productGrid
-
-    // header category nav accepts click to filter to a category
-    categoryNav.addEventListener('click', (e)=>{
-      if(e.target.tagName === 'BUTTON'){
-        const cat = e.target.textContent === 'All' ? null : e.target.textContent;
-        activeCategory = cat;
-        // visually active
-        $$('#categoryNav button').forEach(b=>b.classList.remove('active'));
-        e.target.classList.add('active');
-        applyFilters();
+        });
       }
+      ITEMS[cat.key] = arr;
     });
 
-    // product data update triggers persist
-    window.addEventListener('beforeunload', ()=> saveCatalog(catalog));
+    /********************
+     * Simple SPA navigation
+     ********************/
+    const pageWelcome = document.getElementById('page-welcome');
+    const pageCatalog = document.getElementById('page-catalog');
+    const pageDetail = document.getElementById('page-detail');
 
-    // contact form
-    $('#contactForm').addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const name = $('#cName').value.trim();
-      const email = $('#cEmail').value.trim();
-      const subj = $('#cSubj').value.trim() || 'Contact';
-      const msg = $('#cMsg').value.trim();
-      const body = `Name: ${name}%0AEmail: ${email}%0A%0A${msg}`;
-      window.location.href = `mailto:info@itemswap.example?subject=${encodeURIComponent(subj)}&body=${body}`;
+    const homeBtn = document.getElementById('homeBtn');
+    const catalogBtn = document.getElementById('catalogBtn');
+    const contactBtn = document.getElementById('contactBtn');
+
+    function showPage(name){
+      pageWelcome.style.display = (name==='home') ? '' : 'none';
+      pageCatalog.style.display = (name==='catalog') ? '' : 'none';
+      pageDetail.style.display = (name==='detail') ? '' : 'none';
+      // highlight nav
+      [homeBtn,catalogBtn,contactBtn].forEach(b=>b.classList.remove('active'));
+      if(name==='home') homeBtn.classList.add('active');
+      if(name==='catalog') catalogBtn.classList.add('active');
+      if(name==='detail') contactBtn.classList.add('active');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    homeBtn.addEventListener('click', ()=> showPage('home'));
+    catalogBtn.addEventListener('click', ()=> {
+      renderCategoryLanding();
+      showPage('catalog');
     });
-    $('#clearContact').addEventListener('click', ()=> { $('#contactForm').reset(); });
+    contactBtn.addEventListener('click', ()=> {
+      // default show shop details of first item as an example
+      const firstCategory = CATEGORIES[0].key;
+      showDetail(ITEMS[firstCategory][0]);
+    });
 
-    // demo: top header categories also clickable to open catalog
-    $$('#categoryNav button').forEach(btn => btn.addEventListener('click', ()=> { renderCatalogUI(); showPage('catalog'); }));
+    // quick CTAs
+    document.getElementById('goToCategories').addEventListener('click', ()=> { renderCategoryLanding(); showPage('catalog'); });
+    document.getElementById('goContact').addEventListener('click', ()=> {
+      const firstCategory = CATEGORIES[0].key;
+      showDetail(ITEMS[firstCategory][0]);
+    });
 
-    // show home initially
+    // top category quick access
+    const topCategories = document.getElementById('topCategories');
+    function renderTopCategoryNav(){
+      topCategories.innerHTML = '';
+      CATEGORIES.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'nav-btn';
+        btn.textContent = cat.label;
+        btn.addEventListener('click', ()=> openCategory(cat.key));
+        topCategories.appendChild(btn);
+      });
+    }
+
+    /********************
+     * CATEGORY LANDING (tiles) and category pages
+     ********************/
+    const categoriesPreview = document.getElementById('categoriesPreview');
+    const categoryContent = document.getElementById('categoryContent');
+
+    function renderCategoryLanding(){
+      // show tiles for all categories
+      categoryContent.innerHTML = '';
+      const container = document.createElement('div');
+      container.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between">
+        <h3 style="margin:0">All Categories</h3><div style="color:var(--muted)">Click a category to view items</div></div>`;
+      const grid = document.createElement('div');
+      grid.className = 'categories-grid';
+      CATEGORIES.forEach(cat => {
+        const card = document.createElement('div');
+        card.className = 'category-tile';
+        card.innerHTML = `
+          <div class="cat-image"><div style="font-size:20px">${cat.label}</div></div>
+          <div class="cat-title">${cat.label}</div>
+          <div class="cat-sub">${ITEMS[cat.key].length} items available</div>
+        `;
+        card.addEventListener('click', ()=> openCategory(cat.key));
+        grid.appendChild(card);
+      });
+      container.appendChild(grid);
+      categoryContent.appendChild(container);
+    }
+
+    // initial categories preview on welcome page
+    function renderCategoriesPreview(){
+      categoriesPreview.innerHTML = '';
+      CATEGORIES.forEach(cat => {
+        const tile = document.createElement('div');
+        tile.className = 'category-tile';
+        tile.style.cursor = 'pointer';
+        tile.innerHTML = `
+          <div class="cat-image">${cat.label}</div>
+          <div class="cat-title">${cat.label}</div>
+          <div class="cat-sub">${ITEMS[cat.key].length} items</div>
+        `;
+        tile.addEventListener('click', ()=> { openCategory(cat.key); showPage('catalog'); });
+        categoriesPreview.appendChild(tile);
+      });
+    }
+
+    // open specific category page showing items grid
+    function openCategory(categoryKey){
+      const cat = CATEGORIES.find(c=>c.key===categoryKey);
+      categoryContent.innerHTML = '';
+      const header = document.createElement('div');
+      header.style.display='flex';
+      header.style.justifyContent='space-between';
+      header.innerHTML = `<div><h2 style="margin:0">${cat.label}</h2><div style="color:var(--muted)">${ITEMS[categoryKey].length} items • Best deals & swaps</div></div>
+        <div><button id="backToAll" class="nav-btn">Back to categories</button></div>`;
+      categoryContent.appendChild(header);
+
+      document.getElementById('backToAll')?.addEventListener('click', ()=> renderCategoryLanding());
+
+      const grid = document.createElement('div');
+      grid.className = 'product-grid';
+      ITEMS[categoryKey].forEach(item=>{
+        const card = document.createElement('div');
+        card.className='product-card';
+        card.innerHTML = `
+          <div class="product-media"><img src="${item.image}" alt="${item.name}"></div>
+          <div class="product-body">
+            <div class="product-name">${item.name}</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+              <div class="product-price">₹${item.price}</div>
+              ${item.price <= 100 ? '<div class="product-budget" style="background:linear-gradient(90deg,var(--accent-3),var(--accent-4));color:#07211a;padding:6px 8px;border-radius:999px;font-weight:800">Budget</div>' : ''}
+            </div>
+            <div class="product-meta">
+              <div style="color:var(--muted);font-size:0.9rem">${item.category}</div>
+              <div><button class="view-btn" data-id="${item.id}" data-cat="${categoryKey}">View</button></div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+      categoryContent.appendChild(grid);
+
+      // attach view handlers
+      grid.querySelectorAll('.view-btn').forEach(b=>b.addEventListener('click', (e)=>{
+        const id = e.currentTarget.dataset.id;
+        const catKey = e.currentTarget.dataset.cat;
+        const item = ITEMS[catKey].find(it=>it.id===id);
+        if(item) showDetail(item);
+      }));
+
+      // show page
+      showPage('catalog');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    /********************
+     * DETAIL / ShopDetails page
+     ********************/
+    const detailWrap = document.getElementById('detailWrap');
+    const detailTitle = document.getElementById('detailTitle');
+    const detailSub = document.getElementById('detailSub');
+    const sellerInfo = document.getElementById('sellerInfo');
+    const socialLinks = document.getElementById('socialLinks');
+    const backToCatalog = document.getElementById('backToCatalog');
+
+    function showDetail(item){
+      // top text
+      detailTitle.textContent = item.name;
+      detailSub.textContent = `${item.category} • Price: ₹${item.price}`;
+
+      // left image + right details
+      detailWrap.innerHTML = '';
+      const left = document.createElement('div');
+      left.className = 'detail-media';
+      left.innerHTML = `<img src="${item.image}" alt="${item.name}">`;
+
+      const right = document.createElement('div');
+      right.className = 'detail-card';
+      right.innerHTML = `
+        <h3 style="margin:0">${item.name}</h3>
+        <div style="color:var(--muted);margin-top:8px">${item.category}</div>
+        <div style="font-weight:900;color:var(--accent-1);font-size:1.4rem;margin-top:12px">₹${item.price}</div>
+        <p style="margin-top:12px;color:var(--muted)">${item.description}</p>
+        <div class="seller-row">
+          <div class="seller-avatar">SS</div>
+          <div>
+            <div style="font-weight:800">Safalya Store</div>
+            <div style="color:var(--muted)">Trusted Seller</div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:10px">
+          <button id="swapRequest" class="view-btn">Request Swap</button>
+          <button id="contactSeller" class="view-btn" style="background:linear-gradient(90deg,var(--accent-3),var(--accent-4));color:#07211a">Contact Seller</button>
+        </div>
+      `;
+
+      detailWrap.appendChild(left);
+      detailWrap.appendChild(right);
+
+      // seller info & social
+      sellerInfo.innerHTML = `
+        <div><strong>Seller:</strong> ${item.seller.name}</div>
+        <div><strong>Phone:</strong> <a href="tel:${item.seller.phone}">${item.seller.phone}</a></div>
+        <div><strong>Email:</strong> <a href="mailto:${item.seller.email}">${item.seller.email}</a></div>
+        <div><strong>Address:</strong> ${item.seller.address}</div>
+      `;
+
+      socialLinks.innerHTML = `
+        <a href="${item.seller.social.instagram}" target="_blank" class="social">Instagram</a>
+        <a href="${item.seller.social.facebook}" target="_blank" class="social">Facebook</a>
+        <a href="${item.seller.social.whatsapp}" target="_blank" class="social">WhatsApp</a>
+      `;
+
+      // actions
+      document.getElementById('swapRequest').onclick = ()=> {
+        alert('Swap request: Please contact seller by phone or email shown below.');
+      };
+      document.getElementById('contactSeller').onclick = ()=> {
+        window.location.href = `mailto:${item.seller.email}?subject=${encodeURIComponent('Interested in '+item.name)}&body=${encodeURIComponent('Hi, I am interested in '+item.name + '. Please tell me more.')}`;
+      };
+
+      backToCatalog.onclick = ()=> {
+        renderCategoryLanding();
+        showPage('catalog');
+      };
+
+      showPage('detail');
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    // on load, render categories preview on welcome and top nav
+    renderTopCategories = () => {
+      const nav = document.getElementById('topCategories');
+      nav.innerHTML = '';
+      CATEGORIES.forEach(c => {
+        const btn = document.createElement('button');
+        btn.className = 'nav-btn';
+        btn.textContent = c.label;
+        btn.onclick = ()=> { openCategory(c.key); };
+        nav.appendChild(btn);
+      });
+    };
+
+    renderTopCategories();
+    renderCategoriesPreview();
+    renderCategoryLanding();
     showPage('home');
 
-    // small helper when user clicks reset sample items
-    document.getElementById('demo-add-sample').addEventListener('click', ()=>{
-      if(!confirm('Reset catalog to fresh sample items? This clears any saved changes.')) return;
-      localStorage.removeItem(STORAGE_KEY);
-      catalog = buildSampleCatalog();
-      saveCatalog(catalog);
-      renderFeatured();
-      renderCatalogUI();
-      alert('Catalog reset to sample items.');
-    });
+    // helper to render categories preview in welcome
+    function renderCategoriesPreview(){
+      categoriesPreview.innerHTML = '';
+      CATEGORIES.forEach(cat => {
+        const tile = document.createElement('div');
+        tile.className = 'category-tile';
+        tile.style.cursor = 'pointer';
+        tile.innerHTML = `
+          <div class="cat-image">${cat.label}</div>
+          <div class="cat-title">${cat.label}</div>
+          <div class="cat-sub">${ITEMS[cat.key].length} items</div>
+        `;
+        tile.addEventListener('click', ()=> { openCategory(cat.key); showPage('catalog'); });
+        categoriesPreview.appendChild(tile);
+      });
+    }
 
-    // initial categories UI
-    renderTopCategories();
-    renderFilterCategories();
-    applyFilters();
-
+    // Attach event listeners for dynamic view buttons inside category tiles (delegation)
+    // (Handled when category page is built.)
   </script>
 </body>
 </html>
